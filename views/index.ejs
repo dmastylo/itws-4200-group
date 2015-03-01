@@ -3,12 +3,44 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <p><%= name %></p>
+    <h1 id="username"></h1>
 
-    <img src='/images/cat.jpg' />
+    <form action="">
+      <input id="username-input" autocomplete="off" />
+
+      <button>Register</button>
+    </form>
+
+    <h2>Current Users</h2>
+    <ul id="current-users"></ul>
+
+    <!-- JavaScript includes. Notice that socket.io.js is served by node.js -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var socket = io();
+
+      $('form').submit(function(e) {
+        e.preventDefault();
+
+        var username = $('#username-input').val();
+
+        socket.emit('username-registered', username);
+        $('#username').text('Hi, ' + username);
+
+        $(this).remove();
+        return false;
+      });
+
+      socket.on('new-username', function(msg){
+        $('#current-users').append($('<li>').text(msg));
+      });
+    </script>
   </body>
 </html>
