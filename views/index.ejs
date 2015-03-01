@@ -22,7 +22,7 @@
 
     <!-- JavaScript includes. Notice that socket.io.js is served by node.js -->
     <script src="/socket.io/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/javascripts/jquery.js"></script>
     <script>
       var socket = io();
 
@@ -38,8 +38,11 @@
         return false;
       });
 
-      socket.on('new-username', function(msg){
-        $('#current-users').append($('<li>').text(msg));
+      socket.on('new-username', function(msg) {
+        var usernames = msg.split(',');
+        for (var i = 0; i < usernames.length; ++i) {
+          $('#current-users').append($('<li>').text(usernames[i]));
+        }
       });
     </script>
   </body>
