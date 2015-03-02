@@ -2,7 +2,6 @@ module.exports = function(io) {
   var clients = [];
 
   io.sockets.on('connection', function (client) {
-    console.log('a user connected');
     clients.push(client);
 
     // Send already connected usernames to newly connected client
@@ -12,18 +11,19 @@ module.exports = function(io) {
     }
     usernames = usernames.filter(function(n) { return n != undefined });
     if (usernames.length) {
-      client.emit('new-username', usernames.join(','));
+      client.emit('new-user', usernames.join(','));
     }
 
     client.on('disconnect', function() {
-      console.log('user disconnected');
+      username = client.username;
       clients.splice(clients.indexOf(client), 1);
+      io.emit('user-disconnected', username);
     });
 
     client.on('username-registered', function(msg) {
       console.log('username: ' + msg);
       clients[clients.indexOf(client)].username = msg;
-      io.emit('new-username', msg);
+      io.emit('new-user', msg);
     });
   });
 };

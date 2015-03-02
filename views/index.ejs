@@ -31,6 +31,10 @@
 
         var username = $('#username-input').val();
 
+        if (!username.length) {
+          return false;
+        }
+
         socket.emit('username-registered', username);
         $('#username').text('Hi, ' + username);
 
@@ -38,11 +42,30 @@
         return false;
       });
 
-      socket.on('new-username', function(msg) {
+      socket.on('new-user', function(msg) {
         var usernames = msg.split(',');
         for (var i = 0; i < usernames.length; ++i) {
-          $('#current-users').append($('<li>').text(usernames[i]));
+          var username_dom = $('<li>').text(usernames[i]).attr('data-username', usernames[i]);
+
+          $('#current-users').prepend(username_dom);
         }
+      });
+
+      socket.on('user-disconnected', function(msg) {
+        var username_dom = $('*[data-username="' + msg + '"]')
+
+        // Animate the user so that people know they're leaving
+        username_dom.text(username_dom.text() + ' has left!');
+        username_dom.css('color', 'red');
+        username_dom.fadeOut('slow', 'swing', function() {
+          username_dom.fadeIn('slow', 'swing');
+        });
+
+        setTimeout(function() {
+          username_dom.slideUp('slow', 'swing', function() {
+            username_dom.remove();
+          });
+        }, 2000);
       });
     </script>
   </body>
