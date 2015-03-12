@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1#username
+
+  #players
+
+  #game
+    canvas(width="600" height="600")
+
+  form(action="")
+    input#username-input(autocomplete="off")
+    button Register
+
+  h2 Current Users
+  ul#current-users

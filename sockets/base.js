@@ -21,9 +21,24 @@ module.exports = function(io) {
     });
 
     client.on('username-registered', function(msg) {
-      console.log('username: ' + msg);
       clients[clients.indexOf(client)].username = msg;
       io.emit('new-user', msg);
     });
+
+    client.on('player-moved', function(movement) {
+      var user = clients[clients.indexOf(client)];
+      user.x = movement.x;
+      user.y = movement.y;
+
+      var player = {
+        username: user.username,
+        x: user.x,
+        y: user.y
+      }
+
+      clients[clients.indexOf(client)] = user;
+      io.emit('player-movement', player);
+      // io.emit('player-movement', clients[clients.indexOf(client)]);
+    })
   });
 };
