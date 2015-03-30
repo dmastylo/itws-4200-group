@@ -1,4 +1,5 @@
 body {
+	background-color: ;
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
@@ -10,3 +11,22 @@ a {
 #game {
   display: none;
 }
+
+#titleBlock {
+	text-align: center;
+}
+
+#title {
+	display: inline;
+}
+
+#formtitle {
+	font-size: 2em;
+}
+
+#username-input {
+	padding: 5px;
+}
+
+
+
