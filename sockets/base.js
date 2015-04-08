@@ -25,20 +25,6 @@ module.exports = function(io) {
       io.emit('new-user', msg);
     });
 
-    client.on('player-moved', function(movement) {
-      var user = clients[clients.indexOf(client)];
-      user.x = movement.x;
-      user.y = movement.y;
-
-      var player = {
-        username: user.username,
-        x: user.x,
-        y: user.y
-      }
-
-      clients[clients.indexOf(client)] = user;
-      io.emit('player-movement', player);
-      // io.emit('player-movement', clients[clients.indexOf(client)]);
-    })
   });
+
 };
