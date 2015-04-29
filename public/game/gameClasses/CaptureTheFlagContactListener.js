@@ -103,7 +103,6 @@ function CaptureTheFlagContactListener() {
 	// Listen for when contact's begin
 	this.beginContact = function (contact) {
 		// console.log('Contact begins between', contact.igeEntityA()._id, 'and', contact.igeEntityB()._id);
-
 		checkForTaggedPlayers(contact);
 
 		checkForHealedPlayers(contact);

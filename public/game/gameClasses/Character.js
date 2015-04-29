@@ -8,6 +8,8 @@ var Character = IgeEntityBox2d.extend({
 
 		// store if they player is currently tagged or not
 		self._tagged = false;
+		if(data.tagged)
+			self._tagged = data.tagged;
 
 		if(data.team)
 			self._team = data.team;
@@ -24,7 +26,7 @@ var Character = IgeEntityBox2d.extend({
 				.depth(1);
 			
 			// Load the character texture file
-			this._characterTexture = new IgeCellSheet('../assets/textures/sprites/vx_chara02_c.png', 12, 8);
+			this._characterTexture = new IgeCellSheet('../assets/textures/sprites/vx_chara02_c_with_dark.png', 12, 8);
 	
 			// Wait for the texture to load
 			this._characterTexture.on('loaded', function () {
@@ -51,6 +53,9 @@ var Character = IgeEntityBox2d.extend({
 		var home_base = this.home_base();
 		this.translateTo(home_base[0], home_base[1], home_base[2]);
 
+		// Define the data sections that will be included in the stream
+		this.streamSections(['transform', 'tagged']);
+
 		console.log("Created a new player on the " + this._team + " team.");
 	},
 
@@ -63,6 +68,36 @@ var Character = IgeEntityBox2d.extend({
 	// being told about the entity's existence.
 	streamCreateData: function () {
 	  return {team:this._team};
+	},
+
+	/**
+	 * Override the default IgeEntity class streamSectionData() method
+	 * so that we can check for the custom1 section and handle how we deal
+	 * with it.
+	 * @param {String} sectionId A string identifying the section to
+	 * handle data get / set for.
+	 * @param {*=} data If present, this is the data that has been sent
+	 * from the server to the client for this entity.
+	 * @return {*}
+	 */
+	streamSectionData: function (sectionId, data) {
+		// Check if the section is one that we are handling
+		if (sectionId === 'tagged') {
+			// Check if the server sent us data, if not we are supposed
+			// to return the data instead of set it
+			if (data !== undefined) {
+				// We have been given new data!
+				this._tagged = data;
+			} else {
+				// Return current data
+				return this._tagged;
+			}
+		} else {
+			// The section was not one that we handle here, so pass this
+			// to the super-class streamSectionData() method - it handles
+			// the "transform" section by itself
+			return IgeEntity.prototype.streamSectionData.call(this, sectionId, data);
+		}
 	},
 
 	team: function (val) {
@@ -94,8 +129,8 @@ var Character = IgeEntityBox2d.extend({
     tagged: function(val) {
     	if (val !== undefined) {
             this._tagged = val;
-            return this;
-        }
+            return this._tagged;
+        }      
  
         return this._tagged;
     },
@@ -128,7 +163,7 @@ var Character = IgeEntityBox2d.extend({
 
 				this._restCell = 4;
 				break;
-
+			// shadow red sprite
 			case 2:
 				this.animation.define('walkDown', [7, 8, 9, 8], 8, -1)
 					.animation.define('walkLeft', [19, 20, 21, 20], 8, -1)
@@ -158,7 +193,7 @@ var Character = IgeEntityBox2d.extend({
 
 				this._restCell = 49;
 				break;
-
+			// default blue sprite
 			case 5:
 				this.animation.define('walkDown', [52, 53, 54, 53], 8, -1)
 					.animation.define('walkLeft', [64, 65, 66, 65], 8, -1)
@@ -167,8 +202,14 @@ var Character = IgeEntityBox2d.extend({
 					.cell(52);
 
 				this._restCell = 52;
-				break;
 
+				this.animation.define('walkDownTagged', [55, 56, 57, 56], 8, -1)
+					.animation.define('walkLeftTagged', [67, 68, 69, 68], 8, -1)
+					.animation.define('walkRightTagged', [79, 80, 81, 80], 8, -1)
+					.animation.define('walkUpTagged', [91, 92, 93, 92], 8, -1)
+					.cell(55);
+				break;
+			// shadow blue sprite
 			case 6:
 				this.animation.define('walkDown', [55, 56, 57, 56], 8, -1)
 					.animation.define('walkLeft', [67, 68, 69, 68], 8, -1)
@@ -178,7 +219,7 @@ var Character = IgeEntityBox2d.extend({
 
 				this._restCell = 55;
 				break;
-
+			// default red sprite
 			case 7:
 				this.animation.define('walkDown', [58, 59, 60, 59], 8, -1)
 					.animation.define('walkLeft', [70, 71, 72, 71], 8, -1)
@@ -187,6 +228,12 @@ var Character = IgeEntityBox2d.extend({
 					.cell(58);
 
 				this._restCell = 58;
+
+				this.animation.define('walkDownTagged', [7, 8, 9, 8], 8, -1)
+					.animation.define('walkLeftTagged', [19, 20, 21, 20], 8, -1)
+					.animation.define('walkRightTagged', [31, 32, 33, 32], 8, -1)
+					.animation.define('walkUpTagged', [43, 44, 45, 44], 8, -1)
+					.cell(7);
 				break;
 		}
 
@@ -196,7 +243,30 @@ var Character = IgeEntityBox2d.extend({
 	},
 	
 	update: function (ctx) {
+		var animation_suffix = "";
+		// console.log(this._id + ".tagged()="+this.tagged());
+		if (this.tagged()) {
+			animation_suffix = "Tagged";
+			// console.log("update called on a tagged player");
+		}
 		if (!ige.isServer) {
+			// set the rest cell based on if the player is tagged or not
+			if(this._tagged) {
+				if(this.team() == 'red') {
+					this.cell(7)
+				}
+				if(this.team() == 'blue') {
+					this.cell(55)
+				}
+			} else {
+				if(this.team() == 'red') {
+					this.cell(58)
+				}
+				if(this.team() == 'blue') {
+					this.cell(52)
+				}
+			}
+
 			// Set the current animation based on direction
 			var self = this,
 				oldX = this._lastTranslate.x,
@@ -224,28 +294,28 @@ var Character = IgeEntityBox2d.extend({
 					// Moving horizontal
 					if (distX < 0) {
 						// Moving left
-						this.animation.select('walkLeft');
+						this.animation.select('walkLeft'+animation_suffix);
 					} else {
 						// Moving right
-						this.animation.select('walkRight');
+						this.animation.select('walkRight'+animation_suffix);
 					}
 				} else {
 					// Moving vertical
 					if (distY < 0) {
 						if (distX < 0) {
 							// Moving up-left
-							this.animation.select('walkUp');
+							this.animation.select('walkUp'+animation_suffix);
 						} else {
 							// Moving up
-							this.animation.select('walkRight');
+							this.animation.select('walkRight'+animation_suffix);
 						}
 					} else {
 						if (distX > 0) {
 							// Moving down-right
-							this.animation.select('walkDown');					
+							this.animation.select('walkDown'+animation_suffix);					
 						} else {
 							// Moving down
-							this.animation.select('walkLeft');
+							this.animation.select('walkLeft'+animation_suffix);
 						}
 					}
 				}
