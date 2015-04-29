@@ -8,10 +8,10 @@ var Character = IgeEntityBox2d.extend({
 
 		// store if they player is currently tagged or not
 		self._tagged = false;
-		if(data.tagged)
+		if(data.tagged !== undefined)
 			self._tagged = data.tagged;
 
-		if(data.team)
+		if(data.team !== undefined)
 			self._team = data.team;
 		
 		// if on the server looks like adding physics

@@ -69,44 +69,26 @@ var Server = IgeClass.extend({
 							.drawBounds(true)
 							.mount(ige);
 
-						// Create some of the objects players run into
-						new IgeEntityBox2d()
+						// Create some of the objects players interact with
+						new Chest( {team : "red"} )
 							.id('red_flag')
-							.translateTo(0, 300, 0)
+							.translateTo(50, 300, 0)
 							.width(20)
 							.height(20)
-							.drawBounds(true)
 							.streamMode(1)
 							.mount(self.mainScene)
-							.category('flag')
-							.box2dBody({
-								type: 'static',
-								allowSleep: true,
-								fixtures: [{
-									shape: {
-										type: 'rectangle'
-									}
-								}]
-							});
+							.category('flag');
 
-						new IgeEntityBox2d()
+						new Chest( {team : "blue"} )
 							.id('blue_flag')
-							.translateTo(800, 300, 0)
-							.width(1)
+							.translateTo(750, 300, 0)
+							.width(20)
 							.height(20)
-							.drawBounds(true)
 							.streamMode(1)
 							.mount(self.mainScene)
 							.category('flag')
-							.box2dBody({
-								type: 'static',
-								allowSleep: true,
-								fixtures: [{
-									shape: {
-										type: 'rectangle'
-									}
-								}]
-							});
+
+						// still need classes / textures
 
                         new IgeEntityBox2d()
                        		.id('top_wall')
