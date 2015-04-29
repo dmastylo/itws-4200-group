@@ -301,7 +301,7 @@ var Character = IgeEntityBox2d.extend({
 				this.cell(10)
 			}
 			if(this.team() == 'blue') {
-				this.cell(49)
+				this.cell(4)
 			}
 
 
