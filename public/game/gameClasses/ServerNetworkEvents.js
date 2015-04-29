@@ -14,11 +14,12 @@ var ServerNetworkEvents = {
 
 	_onPlayerDisconnect: function (clientId) {
 		if (ige.server.players[clientId]) {
+			console.log("disconnect for clientID "+clientId);
 			// delete the player from the team lists
 			if(ige.server.players[clientId].team() == 'red') {
-				ige.server.red_team_players--;
+				--ige.server.red_team_players;
 			} else if(ige.server.players[clientId].team() == 'blue') {
-				ige.server.blue_team_players--;
+				--ige.server.blue_team_players;
 			}
 
 			// Remove the player from the game
@@ -35,13 +36,13 @@ var ServerNetworkEvents = {
 
 			// check what team to put the player on
 			// place on red then blue
-			var team, player_number;
+			var team;
 			if(ige.server.red_team_players <= ige.server.blue_team_players) {
 				team = 'red';
-				player_number = ++ige.server.red_team_players;
+				++ige.server.red_team_players;
 			} else {
 				team = 'blue';
-				player_number = ++ige.server.blue_team_players;
+				++ige.server.blue_team_players;
 			}
 			
 			ige.server.players[clientId] = new Character({team:team})
@@ -75,7 +76,7 @@ var ServerNetworkEvents = {
 				// .translateTo(480, 300, 0)
 				.drawBounds(false)
 				.streamMode(1)
-				.id("player_"+team+"_"+player_number)
+				.id("player_"+team+"_"+clientId)
 				.mount(ige.server.mainScene);
 
 			// Tell the client to track their player entity
@@ -84,35 +85,43 @@ var ServerNetworkEvents = {
 	},
 
 	_onPlayerLeftDown: function (data, clientId) {
-		ige.server.players[clientId].playerControl.controls.left = true;
+		if (ige.server.players[clientId])
+			ige.server.players[clientId].playerControl.controls.left = true;
 	},
 
 	_onPlayerLeftUp: function (data, clientId) {
-		ige.server.players[clientId].playerControl.controls.left = false;
+		if (ige.server.players[clientId])
+			ige.server.players[clientId].playerControl.controls.left = false;
 	},
 
 	_onPlayerRightDown: function (data, clientId) {
-		ige.server.players[clientId].playerControl.controls.right = true;
+		if (ige.server.players[clientId])
+			ige.server.players[clientId].playerControl.controls.right = true;
 	},
 
 	_onPlayerRightUp: function (data, clientId) {
-		ige.server.players[clientId].playerControl.controls.right = false;
+		if (ige.server.players[clientId])
+			ige.server.players[clientId].playerControl.controls.right = false;
 	},
 
 	_onPlayerUpDown: function (data, clientId) {
-		ige.server.players[clientId].playerControl.controls.up = true;
+		if (ige.server.players[clientId])
+			ige.server.players[clientId].playerControl.controls.up = true;
 	},
 
 	_onPlayerUpUp: function (data, clientId) {
-		ige.server.players[clientId].playerControl.controls.up = false;
+		if (ige.server.players[clientId])
+			ige.server.players[clientId].playerControl.controls.up = false;
 	},
 	
 	_onPlayerDownDown: function (data, clientId) {
-		ige.server.players[clientId].playerControl.controls.down = true;
+		if (ige.server.players[clientId])
+			ige.server.players[clientId].playerControl.controls.down = true;
 	},
 
 	_onPlayerDownUp: function (data, clientId) {
-		ige.server.players[clientId].playerControl.controls.down = false;
+		if (ige.server.players[clientId])
+			ige.server.players[clientId].playerControl.controls.down = false;
 	}
 };
 
