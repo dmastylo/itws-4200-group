@@ -9,9 +9,6 @@ var Server = IgeClass.extend({
 		// Define an object to hold references to our player entities
 		this.players = {};
 
-		this.red_score = 0;
-		this.blue_score = 0;
-
 		// store a count of the players on each team
 		this.red_team_players = 0;
 		this.blue_team_players = 0;
@@ -72,26 +69,44 @@ var Server = IgeClass.extend({
 							.drawBounds(true)
 							.mount(ige);
 
-						// Create some of the objects players interact with
-						new Chest( {team : "red"} )
+						// Create some of the objects players run into
+						new IgeEntityBox2d()
 							.id('red_flag')
-							.translateTo(50, 300, 0)
+							.translateTo(0, 300, 0)
 							.width(20)
 							.height(20)
-							.streamMode(1)
-							.mount(self.mainScene)
-							.category('flag');
-
-						new Chest( {team : "blue"} )
-							.id('blue_flag')
-							.translateTo(750, 300, 0)
-							.width(20)
-							.height(20)
+							.drawBounds(true)
 							.streamMode(1)
 							.mount(self.mainScene)
 							.category('flag')
+							.box2dBody({
+								type: 'static',
+								allowSleep: true,
+								fixtures: [{
+									shape: {
+										type: 'rectangle'
+									}
+								}]
+							});
 
-						// still need classes / textures
+						new IgeEntityBox2d()
+							.id('blue_flag')
+							.translateTo(800, 300, 0)
+							.width(1)
+							.height(20)
+							.drawBounds(true)
+							.streamMode(1)
+							.mount(self.mainScene)
+							.category('flag')
+							.box2dBody({
+								type: 'static',
+								allowSleep: true,
+								fixtures: [{
+									shape: {
+										type: 'rectangle'
+									}
+								}]
+							});
 
                         new IgeEntityBox2d()
                        		.id('top_wall')

@@ -35,13 +35,13 @@ var ServerNetworkEvents = {
 
 			// check what team to put the player on
 			// place on red then blue
-			var team, player_number;
+			var team;
 			if(ige.server.red_team_players <= ige.server.blue_team_players) {
 				team = 'red';
-				player_number = ++ige.server.red_team_players;
+				ige.server.red_team_players++;
 			} else {
 				team = 'blue';
-				player_number = ++ige.server.blue_team_players;
+				ige.server.blue_team_players++;
 			}
 			
 			ige.server.players[clientId] = new Character({team:team})
@@ -75,7 +75,6 @@ var ServerNetworkEvents = {
 				// .translateTo(480, 300, 0)
 				.drawBounds(false)
 				.streamMode(1)
-				.id("player_"+team+"_"+player_number)
 				.mount(ige.server.mainScene);
 
 			// Tell the client to track their player entity

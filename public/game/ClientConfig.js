@@ -6,7 +6,7 @@ var igeClientConfig = {
 		'./gameClasses/PlayerComponent.js',
 		'./gameClasses/Chest.js',
 		'./maps/home/BackgroundLayer1.js',
-		'./maps/home/StaticObjectLayer1.js',
+		// './maps/home/StaticObjectLayer1.js',
 		/* Standard game scripts */
 		'./client.js',
 		'./index.js'

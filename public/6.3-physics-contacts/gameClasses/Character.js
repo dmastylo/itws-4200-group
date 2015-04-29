@@ -2,90 +2,26 @@
 var Character = IgeEntityBox2d.extend({
 	classId: 'Character',
 
-	init: function (data) {
+	init: function () {
 		var self = this;
 		IgeEntityBox2d.prototype.init.call(this);
 
-		if(data.team)
-			self._team = data.team;
-		
-		// if on the server looks like adding physics
-		if (ige.isServer) {
-			this.addComponent(IgeVelocityComponent);
-		}
-		
-		// if not looks like adding texture
+		// Setup the entity
+		self.addComponent(IgeAnimationComponent)
+			.addComponent(IgeVelocityComponent)
+			.depth(1);
+
+		// Load the character texture file
 		if (!ige.isServer) {
-			// Setup the entity
-			self.addComponent(IgeAnimationComponent)
-				.depth(1);
-			
-			// Load the character texture file
 			this._characterTexture = new IgeCellSheet('../assets/textures/sprites/vx_chara02_c.png', 12, 8);
-	
+
 			// Wait for the texture to load
 			this._characterTexture.on('loaded', function () {
 				self.texture(self._characterTexture)
 					.dimensionsFromCell();
-
-				if(self.team() == 'red') {
-					console.log("I'm on the red team and type 7");
-					self.setType(7);
-				} else if(self.team() == 'blue') {
-					console.log("I'm on the blue team and type 5");
-					self.setType(5);
-				} else {
-					self.setType(0);
-					console.log("I don't know what team I'm on!!");
-				}
-
 			}, false, true);
 		}
-		
-		this._lastTranslate = this._translate.clone();
-
-		// dump the player off in their home base
-		var home_base = this.home_base();
-		this.translateTo(home_base[0], home_base[1], home_base[2]);
-
-		console.log("Created a new player on the " + this._team + " team.");
 	},
-
-	// This is called by the stream system on the server to ask
-	// for the data that will be sent along with the initial entity
-	// create on the client. The object returned will be passed as
-	// the first parameter in the init() method when the ghost
-	// is instantiated client-side, allowing you to send along
-	// custom data for the entity automatically when a client is
-	// being told about the entity's existence.
-	streamCreateData: function () {
-	  return {team:this._team};
-	},
-
-	team: function (val) {
-        if (val !== undefined) {
-            this._team = val;
-            return this;
-        }
- 
-        return this._team;
-    },
-
-    home_base: function() {
-    	if(this._team == 'red')
-    		return [10, 10, 0];
-    	else
-    		return [770, 570, 0];
-    },
-
-    on_opponent_side: function() {
-    	if(this._team == 'red' && this.origin().x() > 400)
-    		return true;
-    	if(this._team == 'blue' && this.origin().x() < 400)
-    		return true;
-
-    	return false;
-    },
 
 	/**
 	 * Sets the type of character which determines the character's
@@ -181,71 +117,61 @@ var Character = IgeEntityBox2d.extend({
 
 		return this;
 	},
-	
-	update: function (ctx) {
-		if (!ige.isServer) {
-			// Set the current animation based on direction
-			var self = this,
-				oldX = this._lastTranslate.x,
-				oldY = this._lastTranslate.y * 2,
-				currX = this.translate().x(),
-				currY = this.translate().y() * 2,
-				distX = currX - oldX,
-				distY = currY - oldY,
-				distance = Math.distance(
-					oldX,
-					oldY,
-					currX,
-					currY
-				),
-				speed = 0.1,
-				time = (distance / speed);
-			
-			this._lastTranslate = this._translate.clone();
-	
-			if (distX == 0 && distY == 0) {
-				this.animation.stop();
+
+	/**
+	 * Tweens the character to the specified world co-ordinates.
+	 * @param x
+	 * @param y
+	 * @return {*}
+	 */
+	walkTo: function (x, y) {
+		var self = this,
+			distX = x - this.translate().x(),
+			distY = y - this.translate().y(),
+			distance = Math.distance(
+				this.translate().x(),
+				this.translate().y(),
+				x,
+				y
+			),
+			speed = 0.1,
+			time = (distance / speed);
+
+		// Set the animation based on direction
+		if (Math.abs(distX) > Math.abs(distY)) {
+			// Moving horizontal
+			if (distX < 0) {
+				// Moving left
+				this.animation.select('walkLeft');
 			} else {
-				// Set the animation based on direction
-				if (Math.abs(distX) > Math.abs(distY)) {
-					// Moving horizontal
-					if (distX < 0) {
-						// Moving left
-						this.animation.select('walkLeft');
-					} else {
-						// Moving right
-						this.animation.select('walkRight');
-					}
-				} else {
-					// Moving vertical
-					if (distY < 0) {
-						if (distX < 0) {
-							// Moving up-left
-							this.animation.select('walkUp');
-						} else {
-							// Moving up
-							this.animation.select('walkRight');
-						}
-					} else {
-						if (distX > 0) {
-							// Moving down-right
-							this.animation.select('walkDown');					
-						} else {
-							// Moving down
-							this.animation.select('walkLeft');
-						}
-					}
-				}
+				// Moving right
+				this.animation.select('walkRight');
 			}
-			
-			// Set the depth to the y co-ordinate which basically
-			// makes the entity appear further in the foreground
-			// the closer they become to the bottom of the screen
-			// !! not sure if this is good or just left over from isometric example
-			this.depth(this._translate.y);
+		} else {
+			// Moving vertical
+			if (distY < 0) {
+				// Moving up
+				this.animation.select('walkUp');
+			} else {
+				// Moving down
+				this.animation.select('walkDown');
+			}
 		}
-		
-		IgeEntity.prototype.update.call(this, ctx);
+
+		// Start tweening the little person to their destination
+		this._translate.tween()
+			.stopAll()
+			.properties({x: x, y: y})
+			.duration(time)
+			.afterTween(function () {
+				self.animation.stop();
+				// And you could make him reset back
+				// to his original animation frame with:
+				//self.cell(10);
+			})
+			.start();
+
+		return this;
 	},
 
 	tick: function (ctx) {

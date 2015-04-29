@@ -111,7 +111,6 @@ function CaptureTheFlagContactListener() {
 		checkForFlagCapture(contact);
 
 		checkForFlagScore(contact);
-		
 	};
 
 	// Listen for when contact's end
