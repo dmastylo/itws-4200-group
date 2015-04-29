@@ -9,6 +9,9 @@ var Server = IgeClass.extend({
 		// Define an object to hold references to our player entities
 		this.players = {};
 
+		this.red_score = 0;
+		this.blue_score = 0;
+
 		// store a count of the players on each team
 		this.red_team_players = 0;
 		this.blue_team_players = 0;
