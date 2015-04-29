@@ -33,7 +33,7 @@ server.on('listening', onListening);
  * Listen for websockets
  */
 var io = require('socket.io').listen(server);
-require('../game_server/game.server')(io);
+// require('../game_server/game.server')(io);
 
 /**
  * Normalize a port into a number, string, or false.
