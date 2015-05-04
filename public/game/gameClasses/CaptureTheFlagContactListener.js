@@ -7,22 +7,22 @@ function checkForTaggedPlayers(contact) {
 
 		// players on opposing teams have touched, send any player on the wrong side of the field home
 		// if you're holding the flag you can be tagged anywhere
-		var offense, defence;
-		if ((contact.igeEntityA().on_opponent_side()&& !contact.igeEntityB().holding_flag()) ||
-			contact.igeEntityA().holding_flag()) {
+		var offence, defence;
+		if ((contact.igeEntityA().on_opponent_side() || contact.igeEntityA().holding_flag()) &&
+			!contact.igeEntityB().holding_flag()) {
 			
 			offence = contact.igeEntityA();
 			defence = contact.igeEntityB();
 			
 		}
-		if ((contact.igeEntityB().on_opponent_side() && !contact.igeEntityA().holding_flag()) ||
-			contact.igeEntityB().holding_flag()) {
+		if ((contact.igeEntityB().on_opponent_side() || contact.igeEntityB().holding_flag()) &&
+			!contact.igeEntityA().holding_flag()) {
 
 			offence = contact.igeEntityB();
 			defence = contact.igeEntityA();
 		}
 
-		if(offence && defence) {
+		if(offence !== undefined && defence !== undefined) {
 			console.log(offence._id +" got tagged by "+ defence._id);
 			offence.tagged(true);
 			// if offence is holding the flag they drop it now and it's returned
