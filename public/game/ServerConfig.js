@@ -4,7 +4,8 @@ var igeConfig = {
 		{name: 'Character', path: './gameClasses/Character'},
 		{name: 'PlayerComponent', path: './gameClasses/PlayerComponent'},
 		{name: 'CaptureTheFlagContactListener', path: './gameClasses/CaptureTheFlagContactListener'},
-		{name: 'Chest', path: './gameClasses/Chest'}
+		{name: 'Chest', path: './gameClasses/Chest'},
+		{name: 'HealArea', path: './gameClasses/HealArea'}
 	]
 };
 
