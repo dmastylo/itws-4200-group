@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'CTF' });
 });
 
+router.get('/leaderboard',function(req,res,next){
+	res.render('../leaderboard',{title:'CTF'});
+});
+
 module.exports = router;
