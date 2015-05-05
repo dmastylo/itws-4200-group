@@ -1,0 +1,20 @@
+/* Game window */
+#igeFrontBuffer {
+    /*height: 100%;*/
+    /*width: 750px;*/
+}
+
+body {
+    /*background-color: rgb(255, 255, 255);*/
+}
+
+.ui_box {
+    display: inline-block;
+    width: 250px;
+    height: 100%;
+    background-color: rgb(198, 226, 198);
+}
+
+.ui_box h1, .ui_box h3 {
+    color: rgb(255,255,255);
+}

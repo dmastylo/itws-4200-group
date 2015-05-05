@@ -24,6 +24,9 @@ var Client = IgeClass.extend({
 			.box2d.createWorld()
 			.box2d.start();
 
+		// add in engine editor
+		ige.addComponent(IgeEditorComponent);
+
 		// Load the textures we want to use
 		this.textures = {
 			grassSheet: new IgeCellSheet('../assets/textures/tiles/grassSheet.png', 4, 1)
@@ -54,15 +57,40 @@ var Client = IgeClass.extend({
 
 							});
 
-						// Create the scene
+						// Add base scene data to graph
+						// ige.addGraph('IgeBaseScene');
+
+						// add a game and ui scene
 						self.mainScene = new IgeScene2d()
 							.id('mainScene');
 
+						self.uiScene = new IgeScene2d()
+							.id('uiScene')
+							.depth(1)
+							.ignoreCamera(true);
+							// .mount(self.mainScene);
+
 						// Create the main viewport
-						self.vp1 = new IgeViewport()
-							.id('vp1')
+						self.game_vp = new IgeViewport()
+							.id('game_vp')
+							.left(300)
+							.middle(0)
+							// .width(1200)
+							// .height(800)
 							.autoSize(true)
 							.scene(self.mainScene)
+							.drawBounds(true)
+							.mount(ige);
+
+						self.ui_vp = new IgeViewport()
+							.id('ui_vp')
+							.left(0)
+							.top(0)
+							.width(300)
+							.height(500)
+							// .originTo(1, 1, 0)
+							.autoSize(false)
+							.scene(self.uiScene)
 							.drawBounds(true)
 							.mount(ige);
 
@@ -78,6 +106,83 @@ var Client = IgeClass.extend({
 							.loadMap(BackgroundLayer1)
 							.mount(self.mainScene);
 
+
+
+						// UI styles
+						ige.ui.style('IgeUiLabel', {
+							'font': '12px Open Sans',
+							'color': '#000000'
+						});
+
+						ige.ui.style('#uiBox', {
+							'backgroundColor': '#eeeeee',
+							// 'top': 80,
+							// 'left': 15,
+							// 'right': 15,
+							// 'height': 40
+						});
+
+						ige.ui.style('.title', {
+							'font': '3em Open Sans',
+							'color': '#666666',
+							'width': 230,
+							'height': 40,
+							'top': 10,
+							'left': 10
+						});
+
+						ige.ui.style('.score', {
+							'font': '2em Open Sans',
+							'width': 230,
+							'height': 40,
+							'top': 10,
+							'left': 10
+						});
+
+						ige.ui.style('.red', {
+							'color': '#FF0000'
+						});
+
+						ige.ui.style('.blue', {
+							'color': '#0000FF'
+						});
+
+						// UI elements
+						var uiBox = new IgeUiElement()
+							// .originTo(0, 0, 0)
+							// .top(0)
+							// .left(0)
+							.width(300)
+							.height(500)
+							// .translateTo(-100, -200, 0)
+							.id('uiBox')
+							.mount(self.uiScene);
+
+						new IgeUiLabel()
+							.value('Capture The Flag!')
+							.styleClass('title')
+							.left(0)
+							.top(0)
+							.mount(uiBox);
+
+						var red_score_label = new IgeUiLabel()
+							.id('red_score_label')
+							.value('Red Score: 0')
+							.styleClass('score')
+							.styleClass('red')
+							.left(0)
+							.top(0)
+							.mount(uiBox);
+
+						var blue_score_label = new IgeUiLabel()
+							.id('blue_score_label')
+							.value('Blue Score: 0')
+							.styleClass('score')
+							.styleClass('blue')
+							.left(0)
+							.top(0)
+							.mount(uiBox);
+
 						// take this out to reduce distractions on screen
 						// self.staticObjectLayer1 = new IgeTextureMap()
 						// 	.depth(1)
@@ -91,12 +196,12 @@ var Client = IgeClass.extend({
 						// 	.mount(self.mainScene);
 
 						// // Translate the camera to the initial player position
-						// self.vp1.camera.lookAt(self.player1);
+						// self.game_vp.camera.lookAt(self.player1);
 						// // this won't work when player is created somewhere else, can change
 
 						// // Tell the camera to track our player character with some
 						// // tracking smoothing (set to 20)
-						// self.vp1.camera.trackTranslate(self.player1, 20);
+						// self.game_vp.camera.trackTranslate(self.player1, 20);
 
 						// Ask the server to create an entity for us
 						ige.network.send('playerEntity');
