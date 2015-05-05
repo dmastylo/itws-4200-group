@@ -91,6 +91,20 @@ var Server = IgeClass.extend({
 							.mount(self.mainScene)
 							.category('flag')
 
+						new HealArea( {team: 'red'} )
+							.id('red_heal_area')
+							.translateTo(15, 15, 0)
+							.streamMode(1)
+							.mount(self.mainScene)
+							.category('heal_area')
+
+						new HealArea( {team: 'blue'} )
+							.id('blue_heal_area')
+							.translateTo(750, 550, 0)
+							.streamMode(1)
+							.mount(self.mainScene)
+							.category('heal_area')
+
 						// still need classes / textures
 
                         new IgeEntityBox2d()
@@ -159,44 +173,6 @@ var Server = IgeClass.extend({
 							.streamMode(1)
 							.mount(self.mainScene)
 							.category('wall')
-							.box2dBody({
-							       type: 'static',
-							       allowSleep: true,
-							       fixtures: [{
-							               shape: {
-							                       type: 'rectangle'
-							               }
-							       }]
-							});
-
-                        new IgeEntityBox2d()
-                       		.id('red_heal_area')
-							.translateTo(15, 15, 0)
-							.width(25)
-							.height(25)
-							.drawBounds(true)
-							.streamMode(1)
-							.mount(self.mainScene)
-							.category('heal_area')
-							.box2dBody({
-							       type: 'static',
-							       allowSleep: true,
-							       fixtures: [{
-							               shape: {
-							                       type: 'rectangle'
-							               }
-							       }]
-							});
-
-                        new IgeEntityBox2d()
-                      		.id('blue_heal_area')
-							.translateTo(750, 550, 0)
-							.width(25)
-							.height(25)
-							.drawBounds(true)
-							.streamMode(1)
-							.mount(self.mainScene)
-							.category('heal_area')
 							.box2dBody({
 							       type: 'static',
 							       allowSleep: true,

@@ -179,8 +179,8 @@
 		position: relative;
 		margin: 0;
 		/*background-image: url('../images/header.png');
-    background-image: url('images/overlay.png'), url('../images/header.png');*/
-    background-color: white;
+    	background-image: url('images/overlay.png'), url('../images/header.png');*/
+    	background-color: white;
 		background-size: 100%, auto;
 		background-position: center center, center center;
 		background-repeat: repeat-repeat, no-repeat;
@@ -220,7 +220,7 @@
 		{
 			background: #fff;
 			text-align: center;
-			padding: 0.2em 0 5em 0;
+			padding: 0.2em 0 7em 0;
 			margin: 0;
 		}
 		
@@ -242,11 +242,16 @@
 		font-size: 0.8em;
 	}
 
+	#container{
+		background-color: #F8F8F8;
+	}
+
 /*********************************************************************************/
 /* Footer                                                                        */
 /*********************************************************************************/
 	footer{
 		position: relative;
+		bottom: 0;
 	}
 
 	footer p{
