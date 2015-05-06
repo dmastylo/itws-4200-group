@@ -166,33 +166,33 @@ var Server = IgeClass.extend({
 			.mount(self.mainScene)
 			.category('wall')
 			.box2dBody({
-				   type: 'static',
-				   allowSleep: true,
-				   fixtures: [{
-						   shape: {
-								   type: 'rectangle'
-						   }
-				   }]
+					type: 'static',
+					allowSleep: true,
+					fixtures: [{
+							shape: {
+									type: 'rectangle'
+							}
+					}]
 			});
 
 		new IgeEntityBox2d()
 			.id('bottom_wall')
-		   .translateTo(400, 600, 0)
-		   .width(840)
-		   .height(1)
-		   .drawBounds(true)
-		   .streamMode(1)
-		   .mount(self.mainScene)
-		   .category('wall')
-		   .box2dBody({
-				   type: 'static',
-				   allowSleep: true,
-				   fixtures: [{
-						   shape: {
-								   type: 'rectangle'
-						   }
-				   }]
-		   });
+			.translateTo(400, 600, 0)
+			.width(840)
+			.height(1)
+			.drawBounds(true)
+			.streamMode(1)
+			.mount(self.mainScene)
+			.category('wall')
+			.box2dBody({
+					type: 'static',
+					allowSleep: true,
+					fixtures: [{
+							shape: {
+									type: 'rectangle'
+							}
+					}]
+			});
 
 		new IgeEntityBox2d()
 			.id('left_wall')
@@ -204,13 +204,13 @@ var Server = IgeClass.extend({
 			.mount(self.mainScene)
 			.category('wall')
 			.box2dBody({
-				   type: 'static',
-				   allowSleep: true,
-				   fixtures: [{
-						   shape: {
-								   type: 'rectangle'
-						   }
-				   }]
+					type: 'static',
+					allowSleep: true,
+					fixtures: [{
+							shape: {
+									type: 'rectangle'
+							}
+					}]
 			});
 
 		new IgeEntityBox2d()
@@ -223,13 +223,13 @@ var Server = IgeClass.extend({
 			.mount(self.mainScene)
 			.category('wall')
 			.box2dBody({
-				   type: 'static',
-				   allowSleep: true,
-				   fixtures: [{
-						   shape: {
+					type: 'static',
+					allowSleep: true,
+					fixtures: [{
+							shape: {
 								type: 'rectangle'
-						   }
-				   }]
+							}
+					}]
 			});
 	},
 

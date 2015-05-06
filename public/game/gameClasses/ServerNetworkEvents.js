@@ -49,27 +49,6 @@ var ServerNetworkEvents = {
 		return false;
 	},
 
-	_onPlayerUnready: function (clientId) {
-		// if the player is on the list of ready clients remove them
-		if (clientId in ige.server.ready_players) {
-			// get the index of the element and remove it with a splice
-			console.log("Ready players before unready of "+clientId);
-			console.dir(ige.server.ready_players);
-			
-			var index = ige.server.ready_players.indexOf(clientId);
-			ige.server.ready_players.splice(index, 1);
-
-			console.log("and after");
-			console.dir(ige.server.ready_players);
-		}
-		return false;
-	},
-
-	_onPlayerConnect: function (clientId) {
-		// Don't reject the client connection
-		return false;
-	},
-
 	_onPlayerDisconnect: function (clientId) {
 		var player = ige.server.players[clientId];
 		if (player) {
