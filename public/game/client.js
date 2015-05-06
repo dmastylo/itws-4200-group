@@ -119,22 +119,13 @@ var Client = IgeClass.extend({
 							'backgroundColor': '#eeeeee'
 						});
 
-						ige.ui.style('#gameTitle', {
-							'font': '3em Open Sans',
-							'color': '#666666',
-							'width': 230,
-							'height': 40,
-							'top': 10,
-							'left': '43%'
-						});
-
 						ige.ui.style('#red_score_label', {
 							'color': '#FF0000',
 							'font': '2em Open Sans',
 							'width': 230,
 							'height': 40,
 							'top': 10,
-							'left': '80%'
+							'left': '85%'
 
 						});
 
@@ -144,16 +135,14 @@ var Client = IgeClass.extend({
 							'width': 230,
 							'height': 40,
 							'top': 10,
-							'left': '10%'
+							'left': '5%'
 						});
 
-						ige.ui.style('#ready', {
-							'color': '#000000',
-							'backgroundColor': '#0000FF',
+						ige.ui.style('#time', {
 							'font': '2em Open Sans',
-							'width': 70,
+							'width': 250,
 							'height': 40,
-							'left': '0%'
+							'left': '43%'
 						});
 
 						// UI elements
@@ -163,25 +152,21 @@ var Client = IgeClass.extend({
 							.id('uiBox')
 							.mount(self.uiScene);
 
-						var ready = new IgeUiLabel()
-							.id('ready')
-							.value('Ready!')
+						var blue_score_label = new IgeUiLabel()
+							.id('blue_score_label')
+							.value('Blue Score: 0')
 							.mount(uiBox);
 
-						new IgeUiLabel()
-							.id('gameTitle')
-							.value('Capture The Flag!')
-							.mount(uiBox);
+						var time = new IgeUiLabel()
+							.id('time')
+							.value('Time Remaining: 0:00')
+							.mount(uiBox);							
 
 						var red_score_label = new IgeUiLabel()
 							.id('red_score_label')
 							.value('Red Score: 0')
 							.mount(uiBox);
 
-						var blue_score_label = new IgeUiLabel()
-							.id('blue_score_label')
-							.value('Blue Score: 0')
-							.mount(uiBox);
 
 						// take this out to reduce distractions on screen
 						// self.staticObjectLayer1 = new IgeTextureMap()
