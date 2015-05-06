@@ -40,6 +40,25 @@ var ClientNetworkEvents = {
 		}
 	},
 
+	_onScoreUpdate: function (data) {
+		console.log("Got score update.");
+		console.dir(data);
+
+		red_score = data.red_score || undefined;
+		blue_score = data.blue_score || undefined;
+
+		if(red_score !== undefined) {
+			console.log("updating red score");
+			ige.$('red_score_label').value("Red Score: "+red_score);
+		}
+
+		if(blue_score !== undefined) {
+			ige.$('blue_score_label').value("Blue Score: "+blue_score);
+			console.log("update blue score");
+		}
+
+	},
+
 	_onAuthFailed: function(data, clientId) {
 		// If auth failed reset the pword and username fields
 		console.log("On auth failed called!");

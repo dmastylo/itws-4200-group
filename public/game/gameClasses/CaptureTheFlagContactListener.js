@@ -93,13 +93,7 @@ function checkForFlagScore(contact) {
 		contact.igeEntityByCategory('player').holding_flag(false);
 		ige.$(flag_team+'_flag').taken(false);
 
-
-		if(player.team() == 'red') {
-			ige.server.red_score += 1;
-		} else {
-			ige.server.blue_score += 1;
-		}
-		console.log("Score is now red:"+ige.server.red_score+" to blue:"+ige.server.blue_score);
+		ige.server.record_score(player.team());
 	}
 }
 
