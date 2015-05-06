@@ -62,6 +62,22 @@ var userInfoSchema = new Schema({
 //model sets up schema for usage
 var uInfo = mongoose.model('uInfoModel',userInfoSchema);
 
+// for (var i=0;i<3;i++) {
+//   var testUserOne = new uInfo( {name: 'Plotka', gamesPlayed: 10, wins: 10, losses: 0, tags: 100, captures: 50});
+//   testUserOne.save(function(err, user) {
+//     if (err) return console.log(err);
+//   });
+
+//   var testUserTwo = new uInfo( {name: 'Shirly', gamesPlayed: 5, wins: 4, losses: 1, tags: 25, captures: 3});
+//   testUserTwo.save(function(err, user) {
+//     if (err) return console.log(err);
+//   });
+
+//   var testUserThree = new uInfo( {name: 'Ahmed', gamesPlayed: 20, wins: 10, losses: 10, tags: 250, captures: 25});
+//   testUserThree.save(function(err, user) {
+//     if (err) return console.log(err);
+//   });
+// };
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
