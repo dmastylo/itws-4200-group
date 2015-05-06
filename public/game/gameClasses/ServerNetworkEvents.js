@@ -49,6 +49,11 @@ var ServerNetworkEvents = {
 		return false;
 	},
 
+	_onPlayerConnect: function (clientId) {
+		// Don't reject the client connection
+		return false;
+	},
+
 	_onPlayerDisconnect: function (clientId) {
 		var player = ige.server.players[clientId];
 		if (player) {
