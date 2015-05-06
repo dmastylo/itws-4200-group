@@ -73,8 +73,9 @@ var Client = IgeClass.extend({
 						// Create the main viewport
 						self.game_vp = new IgeViewport()
 							.id('game_vp')
-							.left(300)
+							.left(0)
 							.middle(0)
+							.top(50)
 							// .width(1200)
 							// .height(800)
 							.autoSize(true)
@@ -86,8 +87,8 @@ var Client = IgeClass.extend({
 							.id('ui_vp')
 							.left(0)
 							.top(0)
-							.width(300)
-							.height(500)
+							.width('100%')
+							.height(50)
 							// .originTo(1, 1, 0)
 							.autoSize(false)
 							.scene(self.uiScene)
@@ -115,72 +116,71 @@ var Client = IgeClass.extend({
 						});
 
 						ige.ui.style('#uiBox', {
-							'backgroundColor': '#eeeeee',
-							// 'top': 80,
-							// 'left': 15,
-							// 'right': 15,
-							// 'height': 40
+							'backgroundColor': '#eeeeee'
 						});
 
-						ige.ui.style('.title', {
+						ige.ui.style('#gameTitle', {
 							'font': '3em Open Sans',
 							'color': '#666666',
 							'width': 230,
 							'height': 40,
 							'top': 10,
-							'left': 10
+							'left': '43%'
 						});
 
-						ige.ui.style('.score', {
+						ige.ui.style('#red_score_label', {
+							'color': '#FF0000',
 							'font': '2em Open Sans',
 							'width': 230,
 							'height': 40,
 							'top': 10,
-							'left': 10
+							'left': '80%'
+
 						});
 
-						ige.ui.style('.red', {
-							'color': '#FF0000'
+						ige.ui.style('#blue_score_label', {
+							'color': '#0000FF',
+							'font': '2em Open Sans',
+							'width': 230,
+							'height': 40,
+							'top': 10,
+							'left': '10%'
 						});
 
-						ige.ui.style('.blue', {
-							'color': '#0000FF'
+						ige.ui.style('#ready', {
+							'color': '#000000',
+							'backgroundColor': '#0000FF',
+							'font': '2em Open Sans',
+							'width': 70,
+							'height': 40,
+							'left': '0%'
 						});
 
 						// UI elements
 						var uiBox = new IgeUiElement()
-							// .originTo(0, 0, 0)
-							// .top(0)
-							// .left(0)
-							.width(300)
-							.height(500)
-							// .translateTo(-100, -200, 0)
+							.width('100%')
+							.height(50)
 							.id('uiBox')
 							.mount(self.uiScene);
 
+						var ready = new IgeUiLabel()
+							.id('ready')
+							.value('Ready!')
+							.mount(uiBox);
+
 						new IgeUiLabel()
+							.id('gameTitle')
 							.value('Capture The Flag!')
-							.styleClass('title')
-							.left(0)
-							.top(0)
 							.mount(uiBox);
 
 						var red_score_label = new IgeUiLabel()
 							.id('red_score_label')
 							.value('Red Score: 0')
-							.styleClass('score')
-							// .styleClass('red')
-							.left(0)
-							.top(100)
 							.mount(uiBox);
 
 						var blue_score_label = new IgeUiLabel()
 							.id('blue_score_label')
 							.value('Blue Score: 0')
-							.styleClass('score')
-							// .styleClass('blue')
-							.left(0)
-							.top(50)
 							.mount(uiBox);
 
 						// take this out to reduce distractions on screen
@@ -212,5 +212,7 @@ var Client = IgeClass.extend({
 		}); //ige.on('texturesLoaded', function () {
 	}
 });
+
+
 
 if (typeof(module) !== 'undefined' && typeof(module.exports) !== 'undefined') { module.exports = Client; }
