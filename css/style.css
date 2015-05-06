@@ -55,110 +55,6 @@
 	}
 
 /*********************************************************************************/
-/* Foundation Navigation Bar                                                     */
-/*********************************************************************************/
-.icon-bar {
-  width: 100%;
-  font-size: 0;
-  display: inline-block;
-  /*background: #333333;*/ }
-  .icon-bar > * {
-    text-align: center;
-    font-size: 1rem;
-    width: 25%;
-    margin: 0 auto;
-    display: block;
-    padding: 1.25rem;
-    float: left; }
-    .icon-bar > * i, .icon-bar > * img {
-      display: block;
-      margin: 0 auto; }
-      .icon-bar > * i + label, .icon-bar > * img + label {
-        margin-top: .0625rem; }
-    .icon-bar > * i {
-      font-size: 1.875rem;
-      vertical-align: middle; }
-    .icon-bar > * img {
-      width: 1.875rem;
-      height: 1.875rem; }
-  .icon-bar.label-right > * i, .icon-bar.label-right > * img {
-    margin: 0 .0625rem 0 0;
-    display: inline-block; }
-    .icon-bar.label-right > * i + label, .icon-bar.label-right > * img + label {
-      margin-top: 0; }
-  .icon-bar.label-right > * label {
-    display: inline-block; }
-  .icon-bar.vertical.label-right > * {
-    text-align: left; }
-  .icon-bar.vertical, .icon-bar.small-vertical {
-    height: 100%;
-    width: auto; }
-    .icon-bar.vertical .item, .icon-bar.small-vertical .item {
-      width: auto;
-      margin: auto;
-      float: none; }
-  @media only screen and (min-width: 40.063em) {
-    .icon-bar.medium-vertical {
-      height: 100%;
-      width: auto; }
-      .icon-bar.medium-vertical .item {
-        width: auto;
-        margin: auto;
-        float: none; } }
-  @media only screen and (min-width: 64.063em) {
-    .icon-bar.large-vertical {
-      height: 100%;
-      width: auto; }
-      .icon-bar.large-vertical .item {
-        width: auto;
-        margin: auto;
-        float: none; } }
-  .icon-bar > * {
-    font-size: 1rem;
-    padding: 1.25rem; }
-    .icon-bar > * i + label, .icon-bar > * img + label {
-      margin-top: .0625rem; }
-    .icon-bar > * i {
-      font-size: 1.875rem; }
-    .icon-bar > * img {
-      width: 1.875rem;
-      height: 1.875rem; }
-  .icon-bar > * label {
-    color: #FFFFFF; }
-  .icon-bar > * i {
-    color: #FFFFFF; }
-  .icon-bar > a:hover {
-    background: #B22222; }
-    .icon-bar > a:hover label {
-      color: #FFFFFF; }
-    .icon-bar > a:hover i {
-      color: #FFFFFF; }
-  .icon-bar > a.active {
-    background: #008CBA; }
-    .icon-bar > a.active label {
-      color: #FFFFFF; }
-    .icon-bar > a.active i {
-      color: #FFFFFF; }
-  .icon-bar .item.disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-    pointer-events: none; }
-    .icon-bar .item.disabled > * {
-      opacity: 0.7;
-      cursor: not-allowed; }
-
-.icon-bar.four-up .item {
-  width: 22%; }
-.icon-bar.four-up.vertical .item, .icon-bar.four-up.small-vertical .item {
-  width: auto; }
-@media only screen and (min-width: 40.063em) {
-  .icon-bar.four-up.medium-vertical .item {
-    width: auto; } }
-@media only screen and (min-width: 64.063em) {
-  .icon-bar.four-up.large-vertical .item {
-    width: auto; } }
-
-/*********************************************************************************/
 /* Header                                                                        */
 /*********************************************************************************/
 	header{
@@ -208,6 +104,23 @@
 	}
 
 /*********************************************************************************/
+/* Register & Login                                                              */
+/*********************************************************************************/
+#register{
+	float:left;
+	margin-left: 10%;
+}
+
+#login {
+	float:right;
+	margin-right: 10%;
+}
+
+#register, #login{
+	width: 35%;
+}
+
+/*********************************************************************************/
 /* Main Sections                                                                 */
 /*********************************************************************************/
 	.main
@@ -249,13 +162,17 @@
 /*********************************************************************************/
 /* Footer                                                                        */
 /*********************************************************************************/
-	footer{
-		position: relative;
-		bottom: 0;
-	}
+footer{
+    padding-top: 1%;
+    background-color: #F8F8F8;
+	position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center; 
+}
 
-	footer p{
+footer p{
 	font-size: 0.8em;
 	text-align: center;
-	}
+}
 
