@@ -7,19 +7,63 @@ var ServerNetworkEvents = {
 	 * @param clientId The client id of the client that sent the message.
 	 * @private
 	 */
-	_onPlayerConnect: function (socket) {
+
+	 _onPlayerAuthenticate: function (data, clientId) {
+		console.log("data");
+		console.dir(data);
+		console.log("clientId");
+		console.dir(clientId);
+
+		var username = data.username || '';
+		var pass = data.password || '';
+
+		// DO AUTH HERE
+		if (username == 'test1' && pass == 'pass1') {
+			// Auth worked
+			ige.server._onPlayerEntity(data, clientId);
+		} else {
+			// send a no data auth failed to the client who failed auth
+			ige.network.send('authFailed', {},  clientId);
+		}
+
+		return false;
+	},
+
+	_onAuthFailed: function(data, clientId) {
+		// not sure what this is for.
+		// It's just here because the console told me to/
+		return false;
+	},
+
+	_onPlayerConnect: function (clientId) {
 		// Don't reject the client connection
 		return false;
 	},
 
 	_onPlayerDisconnect: function (clientId) {
-		if (ige.server.players[clientId]) {
+		var player = ige.server.players[clientId];
+		if (player) {
 			console.log("disconnect for clientID "+clientId);
 			// delete the player from the team lists
-			if(ige.server.players[clientId].team() == 'red') {
+			if(player.team() == 'red') {
 				--ige.server.red_team_players;
-			} else if(ige.server.players[clientId].team() == 'blue') {
+			} else if(player.team() == 'blue') {
 				--ige.server.blue_team_players;
+			}
+
+			// if player disconnects with flag return it
+			if(player.holding_flag()) {
+				// figure out what team the flag is from
+				var flag_team;
+				if (player.team() == 'red') {
+					flag_team = 'blue';
+				} else {
+					flag_team = 'red';
+				}
+				// drop the flag
+				player.holding_flag(false);
+				// reset the flag
+				ige.$(flag_team+'_flag').taken(false);
 			}
 
 			// Remove the player from the game

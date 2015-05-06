@@ -50,6 +50,9 @@ var Server = IgeClass.extend({
 						ige.network.on('connect', self._onPlayerConnect); // Defined in ./gameClasses/ServerNetworkEvents.js
 						ige.network.on('disconnect', self._onPlayerDisconnect); // Defined in ./gameClasses/ServerNetworkEvents.js
 
+						ige.network.define('playerAuthenticate', self._onPlayerAuthenticate);
+						ige.network.define('authFailed', self._onAuthFailed);
+
 						// Add the network stream component
 						ige.network.addComponent(IgeStreamComponent)
 							.stream.sendInterval(30) // Send a stream update once every 30 milliseconds
