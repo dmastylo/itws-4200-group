@@ -38,6 +38,11 @@ var ClientNetworkEvents = {
 				}
 			});
 		}
+	},
+
+	_onAuthFailed: function(data, clientId) {
+		// If auth failed reset the pword and username fields
+		console.log("On auth failed called!");
 	}
 };
 

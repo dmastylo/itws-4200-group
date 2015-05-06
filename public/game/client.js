@@ -46,6 +46,7 @@ var Client = IgeClass.extend({
 					// ige.network.start('http://129.161.139.246:2000', function () {
 						// Setup the network command listeners
 						ige.network.define('playerEntity', self._onPlayerEntity); // Defined in ./gameClasses/ClientNetworkEvents.js
+						ige.network.define('authFailed', self._onAuthFailed);
 
 						// Setup the network stream handler
 						ige.network.addComponent(IgeStreamComponent)
@@ -80,7 +81,7 @@ var Client = IgeClass.extend({
 							// .height(800)
 							.autoSize(true)
 							.scene(self.mainScene)
-							// .drawBounds(true)
+							.drawBounds(true)
 							.mount(ige);
 
 						self.ui_vp = new IgeViewport()
@@ -92,7 +93,7 @@ var Client = IgeClass.extend({
 							// .originTo(1, 1, 0)
 							.autoSize(false)
 							.scene(self.uiScene)
-							// .drawBounds(true)
+							.drawBounds(true)
 							.mount(ige);
 
 						// Create the texture maps and load their map data
@@ -205,6 +206,8 @@ var Client = IgeClass.extend({
 
 						// Ask the server to create an entity for us
 						ige.network.send('playerEntity');
+
+						// ige.network.send('playerAuthenticate', { username: 'test1', password: 'pass1' });
 
 					}); //ige.network.start('http://localhost:2000', function () {
 				} // if (success) {
