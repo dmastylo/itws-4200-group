@@ -79,7 +79,7 @@ var Client = IgeClass.extend({
 							// .height(800)
 							.autoSize(true)
 							.scene(self.mainScene)
-							.drawBounds(true)
+							// .drawBounds(true)
 							.mount(ige);
 
 						self.ui_vp = new IgeViewport()
@@ -91,7 +91,7 @@ var Client = IgeClass.extend({
 							// .originTo(1, 1, 0)
 							.autoSize(false)
 							.scene(self.uiScene)
-							.drawBounds(true)
+							// .drawBounds(true)
 							.mount(ige);
 
 						// Create the texture maps and load their map data
@@ -169,18 +169,18 @@ var Client = IgeClass.extend({
 							.id('red_score_label')
 							.value('Red Score: 0')
 							.styleClass('score')
-							.styleClass('red')
+							// .styleClass('red')
 							.left(0)
-							.top(0)
+							.top(100)
 							.mount(uiBox);
 
 						var blue_score_label = new IgeUiLabel()
 							.id('blue_score_label')
 							.value('Blue Score: 0')
 							.styleClass('score')
-							.styleClass('blue')
+							// .styleClass('blue')
 							.left(0)
-							.top(0)
+							.top(50)
 							.mount(uiBox);
 
 						// take this out to reduce distractions on screen
