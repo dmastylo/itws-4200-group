@@ -30,7 +30,7 @@ var Chest = IgeEntityBox2d.extend({
 				.depth(1);
 
 			// Load the chest texture file
-			self._chestTexture = new IgeCellSheet('../assets/textures/tiles/vx-xp-176-chest03.png', 3, 4);
+			self._chestTexture = new IgeCellSheet('../assets/textures/tiles/flags.png', 3, 4);
 			// this._chestTextureRight = new IgeCellSheet('../assets/textures/tiles/vx-xp-176-chest03.png', 3, 4);
 
 			console.log("creating new chest. about to set texture load callback.");

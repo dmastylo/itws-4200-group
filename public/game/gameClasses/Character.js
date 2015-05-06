@@ -30,7 +30,7 @@ var Character = IgeEntityBox2d.extend({
 				.depth(1);
 			
 			// Load the character texture file
-			this._characterTexture = new IgeCellSheet('../assets/textures/sprites/vx_chara02_c_with_dark.png', 12, 8);
+			this._characterTexture = new IgeCellSheet('../assets/textures/sprites/new_characters.png', 12, 8);
 	
 			// Wait for the texture to load
 			this._characterTexture.on('loaded', function () {
