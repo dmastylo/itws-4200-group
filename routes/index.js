@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/leaderboard',function(req,res,next){
-	res.render('../leaderboard',{title:'CTF'});
+	res.render('leaderboard',{title:'CTF'});
 });
 
 module.exports = router;
