@@ -43,7 +43,7 @@ globDB.blueWins = 50;
 globDB.tags = 14276;
 globDB.totalCaptures = 2000;
 //save the instance
-globDB.save();
+//globDB.save();
 globalModel.find({},function(err,docs){
   for(doc in docs){
     console.log(docs[doc]);
@@ -78,6 +78,13 @@ var uInfo = mongoose.model('uInfoModel',userInfoSchema);
 //     if (err) return console.log(err);
 //   });
 // };
+
+//DB acessors
+app.get('userInfo',function(res,req){
+  uInfo.find({},function(err,docs){
+    return res.json(docs);
+  });
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

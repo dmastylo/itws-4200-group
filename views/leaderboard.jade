@@ -1,4 +1,4 @@
-html
+html(ng-controller='leaderboard')
   head
     title Capture The Flag
     link(rel='stylesheet', href='css/lstyle.css')
@@ -49,21 +49,17 @@ html
               td.positions 3
               td rpi
               td 2 
-      //- div(ng-controller='leaderboard')
-      //-     table
-      //-         tr(ng-repeat='x in names')
-      //-           td {{ $index + 1 }}
-      //-           |       
-      //-           td {{ x.name }}
-      //-           |       
-      //-           td {{ x.gamesPlayed }}
-      //-     |       
-      //-     script.
-      //-       var app = angular.module('myApp', []);
-      //-       app.controller('leaderboard', function($scope, $http) {
-      //-       $http.get("/userInfo")
-      //-       .success(function (response) {$scope.names = response.records;});
-      //-       });
+      div
+          table
+              tr(ng-repeat='x in names')
+                td {{ $index + 1 }}
+                td {{ x.name }}
+                td {{ x.gamesPlayed }}
+                td {{ x.wins }}
+                td {{ x.losses }}
+                td {{ x.tags}}
+                td {{ x.captures}}       
+      script(src='javascripts/leaderboard.js')
     // Footer
     footer
       p
