@@ -35,6 +35,36 @@ var ServerNetworkEvents = {
 		return false;
 	},
 
+
+	_onPlayerReady: function (clientId) {
+		// if the player is not on the list of ready clients add them
+		// check if everyone is ready and if so start the game
+		if (!clientId in ige.server.ready_players) {
+			ige.server.ready_players.push(clientId);
+		}
+
+		if (ige.server.ready_players.length == ige.server.players.length) {
+			console.log("START GAME!!");
+		}
+		return false;
+	},
+
+	_onPlayerUnready: function (clientId) {
+		// if the player is on the list of ready clients remove them
+		if (clientId in ige.server.ready_players) {
+			// get the index of the element and remove it with a splice
+			console.log("Ready players before unready of "+clientId);
+			console.dir(ige.server.ready_players);
+			
+			var index = ige.server.ready_players.indexOf(clientId);
+			ige.server.ready_players.splice(index, 1);
+
+			console.log("and after");
+			console.dir(ige.server.ready_players);
+		}
+		return false;
+	},
+
 	_onPlayerConnect: function (clientId) {
 		// Don't reject the client connection
 		return false;

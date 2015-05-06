@@ -80,7 +80,7 @@ var Client = IgeClass.extend({
 							// .height(800)
 							.autoSize(true)
 							.scene(self.mainScene)
-							// .drawBounds(true)
+							.drawBounds(true)
 							.mount(ige);
 
 						self.ui_vp = new IgeViewport()
@@ -92,7 +92,7 @@ var Client = IgeClass.extend({
 							// .originTo(1, 1, 0)
 							.autoSize(false)
 							.scene(self.uiScene)
-							// .drawBounds(true)
+							.drawBounds(true)
 							.mount(ige);
 
 						// Create the texture maps and load their map data
