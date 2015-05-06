@@ -10,7 +10,7 @@ html
       a.item(href='/')
         img(src='images/fi-home.svg')
         // label>Home</label
-      a.item(href='#')
+      a.item(href='/game')
         img(src='images/fi-play.svg')
         // label>Home</label
       a.item(href='leaderboard.html')
@@ -48,25 +48,22 @@ html
             tr
               td.positions 3
               td rpi
-              td 2
-    //
-      Navigation>
-      <div ng-app="myApp" ng-controller="#">
-      <table>
-      <tr ng-repeat="x in names">
-      <td>{{ $index + 1 }}</td>
-      <td>{{ x.Name }}</td>
-      <td>{{ x.Score }}</td>
-      </tr>
-      </table>
-      </div>
-      <script>
-      var app = angular.module('myApp', []);
-      app.controller('#', function($scope, $http) {
-      $http.get("something.php")
-      .success(function (response) {$scope.names = response.records;});
-      });
-      </script
+              td 2 
+      //- div(ng-controller='leaderboard')
+      //-     table
+      //-         tr(ng-repeat='x in names')
+      //-           td {{ $index + 1 }}
+      //-           |       
+      //-           td {{ x.name }}
+      //-           |       
+      //-           td {{ x.gamesPlayed }}
+      //-     |       
+      //-     script.
+      //-       var app = angular.module('myApp', []);
+      //-       app.controller('leaderboard', function($scope, $http) {
+      //-       $http.get("/userInfo")
+      //-       .success(function (response) {$scope.names = response.records;});
+      //-       });
     // Footer
     footer
       p
