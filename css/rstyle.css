@@ -1,0 +1,163 @@
+@import url("http://fonts.googleapis.com/css?family=Roboto:100");
+
+	body{
+		font-family: 'Roboto', sans-serif;
+		font-weight: 300;
+		font-size: 17pt;
+		line-height: 1.75em;
+		color: #888;
+		-webkit-text-stroke: 0.1px;
+	}
+
+	h1, h2{
+		color: #666;
+		margin: 0 0 1em 0;
+		font-weight: 100;
+		line-height: 1.5em;
+	}
+		
+		h1 a, h2 a{
+			color: inherit;
+			text-decoration: none;
+		}
+
+		.dark h1, .dark h2{
+			color: #fff;
+		}
+
+	a{
+		color: inherit;
+		text-decoration: none;
+		border-bottom: dotted 1px rgba(0,0,0,0.25);
+	}
+	
+	a:hover{
+		border-bottom-color: rgba(0,0,0,0);
+	}
+	
+	p, ul{
+		margin-bottom: 1em;
+	}
+
+	/* Dark */
+	.dark{
+		color: #aaa;
+		color: rgba(255,255,255,0.65);
+	}
+
+/*********************************************************************************/
+/* Header                                                                        */
+/*********************************************************************************/
+	
+		header h1{
+			margin: 0;
+		}
+
+		header h2{
+			padding-top: 1.5%;
+		}
+	
+		header p{
+			display: block;
+			margin: 0;
+			padding: 0em 0 0.5em 0;
+		}
+
+	#header{
+		position: relative;
+		margin: 0;
+		padding: 2em 0 4em 0;
+		text-align: center;
+		color: #000;
+	}
+		
+	#header header h1{
+		font-size: 2.25em;
+		line-height: 1em;
+		margin-bottom: 0;
+		margin-top: 1.5em;
+		color: #000;
+	}
+			
+	#header header p{
+		margin-top: 1em;
+		font-weight: 100;
+		padding: 0;
+		font-size: 1.25em;
+		line-height: 1.5em;
+		text-align: center;
+		margin-bottom: 0;
+	}
+
+/*********************************************************************************/
+/* Register & Login                                                              */
+/*********************************************************************************/
+#register{
+	float:left;
+	margin-left: 10%;
+}
+
+#login {
+	float:right;
+	margin-right: 10%;
+}
+
+#register, #login{
+	width: 35%;
+}
+
+/*********************************************************************************/
+/* Main Sections                                                                 */
+/*********************************************************************************/
+	.main
+	{
+		padding-top: 3.2%;
+		position: relative;
+		margin: 0;
+	}
+	
+		.main header
+		{
+			background: #fff;
+			text-align: center;
+			padding: 0.2em 0 7em 0;
+			margin: 0;
+		}
+		
+			.main header h2{
+				font-size: 2.25em;
+				font-weight: 100;
+				margin-bottom: 0;
+			}
+		
+			.main header p{
+				margin: 2em 0 0 0;
+				padding: 0;
+				text-align: center;
+			}
+
+	ul li{
+		list-style: none;
+		text-align: left;
+		padding-top: 3%;
+		font-size: 1.2em;
+	}
+
+
+/*********************************************************************************/
+/* Footer                                                                        */
+/*********************************************************************************/
+footer{
+    padding-top: 1%;
+    background-color: #F8F8F8;
+	position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center; 
+}
+
+footer p{
+	font-size: 0.8em;
+	text-align: center;
+}
+
