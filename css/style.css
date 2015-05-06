@@ -1,10 +1,6 @@
 @import url("http://fonts.googleapis.com/css?family=Roboto:100");
 
 	body{
-		background: #F8F8F8;
-	}
-
-	body{
 		font-family: 'Roboto', sans-serif;
 		font-weight: 300;
 		font-size: 17pt;
@@ -43,11 +39,6 @@
 		margin-bottom: 1em;
 	}
 
-	/* Sections */
-	section{
-		margin-bottom: 3em;
-	}
-
 	/* Dark */
 	.dark{
 		color: #aaa;
@@ -58,11 +49,15 @@
 /* Header                                                                        */
 /*********************************************************************************/
 	header{
-		margin-bottom: 0em;
+		margin-top: 2.5%;
 	}
 	
 		header h1{
 			margin: 0;
+		}
+
+		header h2{
+			padding-top: 1.5%;
 		}
 	
 		header p{
@@ -74,15 +69,10 @@
 	#header{
 		position: relative;
 		margin: 0;
-		/*background-image: url('../images/header.png');
-    	background-image: url('images/overlay.png'), url('../images/header.png');*/
-    	background-color: white;
-		background-size: 100%, auto;
-		background-position: center center, center center;
-		background-repeat: repeat-repeat, no-repeat;
 		padding: 2em 0 4em 0;
 		text-align: center;
 		color: #000;
+		border-bottom: dotted 1px rgba(0,0,0,0.25)
 	}
 		
 	#header header h1{
@@ -125,6 +115,7 @@
 /*********************************************************************************/
 	.main
 	{
+		padding-top: 3.2%;
 		position: relative;
 		margin: 0;
 	}
@@ -152,12 +143,10 @@
 	ul li{
 		list-style: none;
 		text-align: left;
-		font-size: 0.8em;
+		padding-top: 3%;
+		font-size: 1.2em;
 	}
 
-	#container{
-		background-color: #F8F8F8;
-	}
 
 /*********************************************************************************/
 /* Footer                                                                        */
@@ -175,4 +164,6 @@ footer p{
 	font-size: 0.8em;
 	text-align: center;
 }
+
+
 

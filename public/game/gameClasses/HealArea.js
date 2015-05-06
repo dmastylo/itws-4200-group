@@ -29,21 +29,21 @@ var Chest = IgeEntityBox2d.extend({
 			self._healAreaTexture = new IgeCellSheet('../assets/textures/tiles/plantsgy7.png', 12, 8);
 			// this._chestTextureRight = new IgeCellSheet('../assets/textures/tiles/vx-xp-176-chest03.png', 3, 4);
 
-			console.log("creating new chest. about to set texture load callback.");
+			// console.log("creating new chest. about to set texture load callback.");
 			// Wait for the texture to load
 			self._healAreaTexture.on('loaded', function () {
 				self.texture(self._healAreaTexture)
 					.dimensionsFromCell();
 
 				if (self._team == "red") {
-					console.log("setting red heal are texture");
+					// console.log("setting red heal are texture");
 					self.setType(1);
 				}
 				else if (self._team == "blue") {
-					console.log("setting blue heal are texture");
+					// console.log("setting blue heal are texture");
 					self.setType(2);
 				} else {
-					console.log("setting unowned heal area texture");
+					// console.log("setting unowned heal area texture");
 					self.setType(0);
 				}
 

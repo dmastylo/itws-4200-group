@@ -38,14 +38,14 @@ var Character = IgeEntityBox2d.extend({
 					.dimensionsFromCell();
 
 				if(self.team() == 'red') {
-					console.log("I'm on the red team and type 7");
+					// console.log("I'm on the red team and type 7");
 					self.setType(7);
 				} else if(self.team() == 'blue') {
-					console.log("I'm on the blue team and type 5");
+					// console.log("I'm on the blue team and type 5");
 					self.setType(5);
 				} else {
 					self.setType(0);
-					console.log("I don't know what team I'm on!!");
+					// console.log("I don't know what team I'm on!!");
 				}
 
 			}, false, true);
