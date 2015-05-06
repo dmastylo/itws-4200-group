@@ -47,6 +47,7 @@ var Client = IgeClass.extend({
 						// Setup the network command listeners
 						ige.network.define('playerEntity', self._onPlayerEntity); // Defined in ./gameClasses/ClientNetworkEvents.js
 						ige.network.define('authFailed', self._onAuthFailed);
+						ige.network.define('scoreUpdate', self._onScoreUpdate)
 
 						// Setup the network stream handler
 						ige.network.addComponent(IgeStreamComponent)

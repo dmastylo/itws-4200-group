@@ -12,7 +12,7 @@ var Server = IgeClass.extend({
 		this.red_score = 0;
 		this.blue_score = 0;
 
-		this.game_length = 15;
+		this.game_length = 30;
 		this.game_time_left = 0;
 		// this is true when the game is being played and false when people are
 		// readying up
@@ -58,7 +58,9 @@ var Server = IgeClass.extend({
 						ige.network.on('disconnect', self._onPlayerDisconnect); // Defined in ./gameClasses/ServerNetworkEvents.js
 
 						ige.network.define('playerAuthenticate', self._onPlayerAuthenticate);
-						ige.network.define('authFailed', self._onAuthFailed);
+						ige.network.define('authFailed', function() {} )
+						ige.network.define('scoreUpdate', function() {} );
+
 						ige.network.define('playerReady', self._onPlayerReady);
 						ige.network.define('playerUnready', self._onPlayerUnready);
 
@@ -98,8 +100,9 @@ var Server = IgeClass.extend({
 							}
 						);
 
-						// just start the game
-						self.gameStart();
+						// just start the game for debugging
+						// self.gameStart();
+
 					} // end ige.start if success
 				}); // end ige.start
 			});
@@ -254,6 +257,21 @@ var Server = IgeClass.extend({
 
 		// start the game
 		this.game_active = true;
+	},
+
+	record_score: function(team) {
+		// update score and update labels
+		if (team == 'red') {
+			this.red_score += 1;
+		} else if (team == 'blue') {
+			this.blue_score += 1;
+		}
+		var score_data = {
+			red_score: this.red_score,
+			blue_score: this.blue_score
+		}
+		ige.network.send('scoreUpdate', score_data);
+		console.log("Score is now red:"+ige.server.red_score+" to blue:"+ige.server.blue_score);
 	},
 
 	gameEnd: function() {

@@ -29,11 +29,11 @@ var ServerNetworkEvents = {
 		return false;
 	},
 
-	_onAuthFailed: function(data, clientId) {
-		// not sure what this is for.
-		// It's just here because the console told me to/
-		return false;
-	},
+	// _onAuthFailed: function(data, clientId) {
+	// 	// not sure what this is for.
+	// 	// It's just here because the console told me to/
+	// 	return false;
+	// },
 
 
 	_onPlayerReady: function (clientId) {
