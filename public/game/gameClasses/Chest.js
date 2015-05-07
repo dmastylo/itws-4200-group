@@ -40,14 +40,14 @@ var Chest = IgeEntityBox2d.extend({
 					.dimensionsFromCell();
 
 				if (self._team == "red") {
-					console.log("setting red chest texture");
+					// console.log("setting red chest texture");
 					self.setType(1);
 				}
 				else if (self._team == "blue") {
-					console.log("setting blue chest texture");
+					// console.log("setting blue chest texture");
 					self.setType(2);
 				} else {
-					console.log("setting unowned chest texture");
+					// console.log("setting unowned chest texture");
 					self.setType(0);
 				}
 

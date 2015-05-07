@@ -123,8 +123,6 @@ function CaptureTheFlagContactListener() {
 		if (contact.igeBothCategories('player')) {
 			if (contact.igeEntityA().tagged() || contact.igeEntityB().tagged()) {
 				// Cancel the contact
-				// console.log("disabling contact because of tagged player. Players: "+
-				// 	contact.igeEntityA()._id + " and " + contact.igeEntityB()._id);
 				contact.SetEnabled(false);
 			}
 		}
@@ -134,6 +132,18 @@ function CaptureTheFlagContactListener() {
 			if (player.tagged()) {
 				contact.SetEnabled(false);
 			}
+		}
+
+		// If the game is started let players go past their base walls
+		// First check for when players are touching their base walls
+		if (contact.igeEitherCategory('player') &&
+			contact.igeEitherCategory('base_wall') &&
+			(contact.igeEntityByCategory('player').team() == 
+				contact.igeEntityByCategory('base_wall').team))
+		{
+			// Players can pass through base walls when the game is active or if they're tagged
+			if(ige.server.getGameActive() || contact.igeEntityByCategory('player').tagged())
+				contact.SetEnabled(false);
 		}
 	};
 

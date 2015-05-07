@@ -54,8 +54,8 @@ var Character = IgeEntityBox2d.extend({
 		this._lastTranslate = this._translate.clone();
 
 		// dump the player off in their home base
-		var home_base = this.home_base();
-		this.translateTo(home_base[0], home_base[1], home_base[2]);
+		var spawn_point = this.spawn_point();
+		this.translateTo(spawn_point[0], spawn_point[1], spawn_point[2]);
 
 		// Define the data sections that will be included in the stream
 		this.streamSections(['transform', 'tagged', 'holding_flag']);
@@ -143,14 +143,6 @@ var Character = IgeEntityBox2d.extend({
         return this._holding_flag;
     },
 
-
-    home_base: function() {
-    	if(this._team == 'red')
-    		return [10, 10, 0];
-    	else
-    		return [770, 570, 0];
-    },
-
     on_opponent_side: function() {
     	if (this._team == 'red' && this.translate().x() > 400) {
     		console.log("red player on wrong side of field at x="+this.translate().x());
@@ -161,6 +153,28 @@ var Character = IgeEntityBox2d.extend({
     		return true;
     	}
 
+    	return false;
+    },
+
+    spawn_point: function() {
+    	if(this._team == 'red')
+    		return [10, 10, 0];
+    	else
+    		return [770, 570, 0];
+    },
+
+    in_base: function() {
+    	// return true when the player is in base
+    	if (this._team == 'red' &&
+    		this.translate().x() <= 200 &&
+    		this.translate().y() <= 200) {
+    		return true;
+    	}
+    	if (this._team == 'blue' &&
+    		this.translate().x() >= 800 - 200 &&
+    		this.translate().y() >= 600 - 200) {
+    		return true;
+    	}
     	return false;
     },
 
