@@ -1,3 +1,5 @@
+var request = require('request');
+
 var Server = IgeClass.extend({
 	classId: 'Server',
 	Server: true,
@@ -271,7 +273,8 @@ var Server = IgeClass.extend({
 
 	gameEnd: function() {
 		self = this;
-		console.log("Ganed ending!");
+		console.log("Game ending!");
+
 		// stop game things happening
 		this.game_active = false;
 
@@ -279,6 +282,14 @@ var Server = IgeClass.extend({
 
 		// print (or save to db) game results and reset
 		console.log("Game Ended!");
+
+		var params = { red_score: self.red_score, blue_score: self.blue_score };
+		request.post('game_results', params, function(err, res, body) {
+      if (!err && res.statusCode === 200) {
+        console.log(res, body);
+      }
+	  });
+
 		console.log("Red score");
 		console.log(self.red_score);
 		self.red_score = 0;

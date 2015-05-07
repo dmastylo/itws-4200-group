@@ -1,8 +1,11 @@
-var app = angular.module('myApp', []);
-function leaderboard($scope, $http){
-	
-	$http.get("/userInfo").success(function (response) {
-		console.dir(response);
-		$scope.names = response.records;
-	});
-};
+var app = angular.module('ctf', []);
+
+function leaderboard($scope, $http) {
+  $scope.leaderboardInit = function() {
+    $http.get("/userInfo").success(function (response) {
+      console.log(response);
+      $scope.stats = response.stats;
+      $scope.users = response.users;
+    });
+  };
+}
