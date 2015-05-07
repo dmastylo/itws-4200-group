@@ -304,13 +304,17 @@ var Server = IgeClass.extend({
 		console.log("Game ending!");
 		var result = 'Tie';
 		var winner = 'Tie';
+		var redWins = 0;
+		var blueWins = 0;
+
 		if (self.red_score > self.blue_score) {
 			result = 'Red Wins!';
 			winner = 'red';
-		} else
-		if (self.blue_score > self.red_score) {
+			redWins += 1;
+		} else if (self.blue_score > self.red_score) {
 			reset = 'Blue Wins!';
 			winner = 'blue';
+			blueWins += 1;
 		}
 		// log stats for all the players
 		for (player_id in this.players) {
@@ -333,6 +337,10 @@ var Server = IgeClass.extend({
 		// print (or save to db) game results and reset
 		console.log("Game Ended!");
 		console.log("Player results")
+
+		var totalTags = 0;
+		var totalCaptures = 0;
+
 		for (player_id in this.players) {
 			var player = this.players[player_id];
 			console.log("Player " + player.getName());
@@ -341,6 +349,10 @@ var Server = IgeClass.extend({
 			console.log("  losses: " + player.losses);
 			console.log("  tags: " + player.tags);
 			console.log("  captures: " + player.captures);
+
+			totalTags += player.tags;
+			totalCaptures += player.captures;
+
 			ige.mongo.update('userinfos',	// collection
 				{ name : player.getName() }, // search json
 				// update json
@@ -364,7 +376,22 @@ var Server = IgeClass.extend({
 				);
 		}
 
+		ige.mongo.findAll('globalmodels')[0], {}, function(err, stats) {
+			console.log("mongo global models");
+			console.dir(stats);
 
+			ige.mongo.update('globalmodels', { totalCaptures: stats[0].totalCaptures },
+			{
+				gamesPlayed   : (stats[0].gamesPlayed + 1),
+				redWins       : (stats[0].gamesPlayed + redWins),
+				blueWins      : (stats[0].gamesPlayed + blueWins),
+				tags          : (stats[0].tags + totalTags),
+				totalCaptures : (stats[0].totalCaptures + totalCaptures)
+			},
+			function(err, result) {
+				{ upsert: true }
+			});
+		});
 
 		// var stats = {
 	 //    gamesPlayed   : 100,
