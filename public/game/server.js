@@ -131,7 +131,7 @@ var Server = IgeClass.extend({
 								return;
 							}
 							// check that there are the right number of players on each team
-							if (self.red_team_players != 1 || self.blue_team_players != 1) {
+							if (self.red_team_players != 2 || self.blue_team_players != 2) {
 								return;
 							}
 
