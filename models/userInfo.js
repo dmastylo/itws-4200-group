@@ -9,6 +9,6 @@ var UserInfoSchema = new Schema({
   losses      : Number,
   tags        : Number,
   captures    : Number
-})
+});
 
 module.exports = UserInfo = mongoose.model('UserInfo', UserInfoSchema);
