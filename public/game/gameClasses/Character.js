@@ -6,10 +6,9 @@ var Character = IgeEntityBox2d.extend({
 		var self = this;
 		IgeEntityBox2d.prototype.init.call(this);
 
-		self.name = 'Demo';
 		if(data.team !== undefined)
 			self.name = data.name;
-		
+
 		self.gamesPlayed = 0;
 		self.wins = 0;
 		self.losses = 0;
@@ -71,6 +70,13 @@ var Character = IgeEntityBox2d.extend({
 		this.streamSections(['transform', 'tagged', 'holding_flag']);
 
 		console.log("Created a new player on the " + this._team + " team.");
+	},
+
+	getName: function() {
+		if (this.name == undefined) {
+			return this._id;
+		}
+		return this.name;
 	},
 
 	// This is called by the stream system on the server to ask

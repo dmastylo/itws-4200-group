@@ -1,9 +1,3 @@
-// MongoDB dependencies
-require('../../db');
-var mongoose = require('mongoose');
-var GlobalModel = mongoose.model('GlobalModel');
-var UserInfo = mongoose.model('UserInfo');
-
 var Server = IgeClass.extend({
 	classId: 'Server',
 	Server: true,
@@ -27,6 +21,25 @@ var Server = IgeClass.extend({
 		// store a count of the players on each team
 		this.red_team_players = 0;
 		this.blue_team_players = 0;
+
+		// Add mongo
+		ige.addComponent(IgeMongoDbComponent, options.db).mongo.connect(function (err, db) {
+			if(err) {
+				console.log("Mongo connect didn't work.");
+				console.log(err);
+			} else {
+				console.log("Mongo connected successfully!");
+				// collections are globalmodels for global and userinfos
+				ige.mongo.findAll('globalmodels', {}, function(err, docs) {
+					console.log("mongo global models");
+					console.dir(docs);
+				});
+				ige.mongo.findAll('userinfos', {}, function(err, docs) {
+					console.log("mongo user models");
+					console.dir(docs);
+				});
+			}
+		})
 
 
 		// Add the server-side game methods / event handlers
@@ -315,10 +328,43 @@ var Server = IgeClass.extend({
 		// stop game things happening
 		this.game_active = false;
 
-		this.resetGame();
+		
 
 		// print (or save to db) game results and reset
 		console.log("Game Ended!");
+		console.log("Player results")
+		for (player_id in this.players) {
+			var player = this.players[player_id];
+			console.log("Player " + player.getName());
+			console.log("  gamesPlayed: " + player.gamesPlayed);
+			console.log("  wins: " + player.wins);
+			console.log("  losses: " + player.losses);
+			console.log("  tags: " + player.tags);
+			console.log("  captures: " + player.captures);
+			ige.mongo.update('userinfos',	// collection
+				{ name : player.getName() }, // search json
+				// update json
+				{
+					gamesPlayed : player.gamesPlayed,
+					wins : player.wins,
+					losses : player.losses,
+					tags : player.tags,
+					captures : player.captures
+				},
+				// callback
+				function(err, result) {
+					if (err) {
+						console.log("Error upserting player info.");
+						console.log(err);
+					}
+					console.log("player upserted in mongo!");
+				},
+				// pass upsert as an option to create the user if no record exists
+				{ upsert: true }
+				);
+		}
+
+
 
 		// var stats = {
 	 //    gamesPlayed   : 100,
@@ -337,12 +383,11 @@ var Server = IgeClass.extend({
   //     }
 	 //  });
 
-		console.log("Red score");
-		console.log(self.red_score);
-		self.red_score = 0;
-		console.log("Blue Score");
-		console.log(self.blue_score);
-		self.blue_score = 0;
+		console.log("Red score: " + self.red_score);
+		console.log("Blue Score: " + self.blue_score);
+		console.log("Result: "+result);
+
+		this.resetGame();
 	},
 
 	getGameActive: function() {
@@ -350,6 +395,8 @@ var Server = IgeClass.extend({
 	},
 
 	resetGame: function() {
+		self.blue_score = 0;
+		self.red_score = 0;
 		// reset players
 		for (player_id in this.players) {
 			var player = this.players[player_id];

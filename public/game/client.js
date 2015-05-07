@@ -123,7 +123,7 @@ var Client = IgeClass.extend({
 							'width': 230,
 							'height': 40,
 							'top': 10,
-							'left': '85%'
+							'left': '5%'
 
 						});
 
@@ -133,7 +133,7 @@ var Client = IgeClass.extend({
 							'width': 230,
 							'height': 40,
 							'top': 10,
-							'left': '5%'
+							'left': '85%'
 						});
 
 						ige.ui.style('#time_label', {

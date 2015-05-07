@@ -25,7 +25,7 @@ function checkForTaggedPlayers(contact) {
 		if(offence !== undefined && defence !== undefined) {
 			console.log(offence._id +" got tagged by "+ defence._id);
 			offence.tagged(true);
-			defence.taggs += 1;
+			defence.tags += 1;
 			// if offence is holding the flag they drop it now and it's returned
 			if(offence.holding_flag()) {
 				// figure out what team the flag is from
