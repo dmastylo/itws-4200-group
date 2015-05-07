@@ -29,7 +29,7 @@ var Client = IgeClass.extend({
 
 		// Load the textures we want to use
 		this.textures = {
-			field_texture: new IgeTexture('../assets/custom/ctf_blank_background.png')
+			field_texture: new IgeTexture('../assets/custom/background.png')
 		};
 
 		ige.on('texturesLoaded', function () {
