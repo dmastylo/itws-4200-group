@@ -12,7 +12,7 @@ var Server = IgeClass.extend({
 		this.red_score = 0;
 		this.blue_score = 0;
 
-		this.game_length = 30;
+		this.game_length = 45;
 		this.game_time_left = 0;
 		// this is true when the game is being played and false when people are
 		// readying up
@@ -103,6 +103,29 @@ var Server = IgeClass.extend({
 						// just start the game for debugging
 						// self.gameStart();
 
+						// set up a check for starting the game
+						self.game_start_checker = new IgeInterval(function () {
+							// check that the game is not currently running
+							if (ige.server.getGameActive()) {
+								return;
+							}
+							// check that there are the right number of players on each team
+							if (self.red_team_players != 1 || self.blue_team_players != 1) {
+								return;
+							}
+
+							// check that all players are in base and not tagged
+							for(player_id in self.players) {
+								if(!self.players[player_id].in_base() ||
+									self.players[player_id].tagged()) {
+									return;
+								}
+							}
+
+							// if haven't returned yet start the game
+							self.gameStart();
+						}, 1000);
+
 					} // end ige.start if success
 				}); // end ige.start
 			});
@@ -127,7 +150,7 @@ var Server = IgeClass.extend({
 		// Create some of the objects players interact with
 		self.red_flag = new Chest( {team : "red"} )
 			.id('red_flag')
-			.translateTo(50, 300, 0)
+			.translateTo(75, 300, 0)
 			.width(20)
 			.height(20)
 			.streamMode(1)
@@ -136,7 +159,7 @@ var Server = IgeClass.extend({
 
 		self.blue_flag = new Chest( {team : "blue"} )
 			.id('blue_flag')
-			.translateTo(750, 300, 0)
+			.translateTo(725, 300, 0)
 			.width(20)
 			.height(20)
 			.streamMode(1)
@@ -145,7 +168,7 @@ var Server = IgeClass.extend({
 
 		new HealArea( {team: 'red'} )
 			.id('red_heal_area')
-			.translateTo(15, 15, 0)
+			.translateTo(50, 50, 0)
 			.streamMode(1)
 			.mount(self.mainScene)
 			.category('heal_area')
@@ -157,74 +180,43 @@ var Server = IgeClass.extend({
 			.mount(self.mainScene)
 			.category('heal_area')
 
-		// still need classes / textures
+		// First create the board walls and set their category
 
-		new IgeEntityBox2d()
-			.id('top_wall')
-			.translateTo(400, 0, 0)
-			.width(840)
-			.height(1)
+		// These are the paramaters of make wall
+		// make_wall: function(id, x, y, width, height)
+		this.make_wall('top_wall', 400, 0, 840, 1)
+			.category('board_wall');
+		this.make_wall('bottom_wall', 400, 600, 840, 1)
+			.category('board_wall');
+		this.make_wall('left_wall', 0, 300, 1, 600)
+			.category('board_wall')
+		this.make_wall('right_wall', 800, 300, 1, 600)
+			.category('board_wall');
+		// Now make the waiting area walls
+		this.make_wall('red_right_base_wall', 200, 100, 1, 200)
+			.category('base_wall')
+			.team = 'red';
+		this.make_wall('red_bottom_base_wall', 100, 200, 200, 1)
+			.category('base_wall')
+			.team = 'red';
+		this.make_wall('blue_left_base_wall', 600, 500, 1, 200)
+			.category('base_wall')
+			.team = 'blue';
+		this.make_wall('blue_top_base_wall', 700, 400, 200, 1)
+			.category('base_wall')
+			.team = 'blue';
+
+	},
+
+	make_wall: function(id, x, y, width, height) {
+		return new IgeEntityBox2d()
+			.id(id)
+			.translateTo(x, y, 0)
+			.width(width)
+			.height(height)
 			.drawBounds(true)
 			.streamMode(1)
-			.mount(self.mainScene)
-			.category('wall')
-			.box2dBody({
-					type: 'static',
-					allowSleep: true,
-					fixtures: [{
-							shape: {
-									type: 'rectangle'
-							}
-					}]
-			});
-
-		new IgeEntityBox2d()
-			.id('bottom_wall')
-			.translateTo(400, 600, 0)
-			.width(840)
-			.height(1)
-			.drawBounds(true)
-			.streamMode(1)
-			.mount(self.mainScene)
-			.category('wall')
-			.box2dBody({
-					type: 'static',
-					allowSleep: true,
-					fixtures: [{
-							shape: {
-									type: 'rectangle'
-							}
-					}]
-			});
-
-		new IgeEntityBox2d()
-			.id('left_wall')
-			.translateTo(0, 300, 0)
-			.width(1)
-			.height(600)
-			.drawBounds(true)
-			.streamMode(1)
-			.mount(self.mainScene)
-			.category('wall')
-			.box2dBody({
-					type: 'static',
-					allowSleep: true,
-					fixtures: [{
-							shape: {
-									type: 'rectangle'
-							}
-					}]
-			});
-
-		new IgeEntityBox2d()
-			.id('right_wall')
-			.translateTo(800, 300, 0)
-			.width(1)
-			.height(600)
-			.drawBounds(true)
-			.streamMode(1)
-			.mount(self.mainScene)
-			.category('wall')
+			.mount(this.mainScene)
 			.box2dBody({
 					type: 'static',
 					allowSleep: true,
@@ -290,7 +282,11 @@ var Server = IgeClass.extend({
 		console.log("Blue Score");
 		console.log(self.blue_score);
 		self.blue_score = 0;
-	}, 
+	},
+
+	getGameActive: function() {
+		return this.game_active;
+	},
 
 	resetGame: function() {
 		// reset players

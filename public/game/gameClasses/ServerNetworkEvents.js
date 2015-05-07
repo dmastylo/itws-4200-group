@@ -9,9 +9,9 @@ var ServerNetworkEvents = {
 	 */
 
 	 _onPlayerAuthenticate: function (data, clientId) {
-		console.log("data");
+		console.log("_onPlayerAuthenticate data");
 		console.dir(data);
-		console.log("clientId");
+		console.log("_onPlayerAuthenticate clientId");
 		console.dir(clientId);
 
 		var username = data.username || '';
@@ -29,13 +29,6 @@ var ServerNetworkEvents = {
 		return false;
 	},
 
-	// _onAuthFailed: function(data, clientId) {
-	// 	// not sure what this is for.
-	// 	// It's just here because the console told me to/
-	// 	return false;
-	// },
-
-
 	_onPlayerReady: function (clientId) {
 		// if the player is not on the list of ready clients add them
 		// check if everyone is ready and if so start the game
@@ -52,6 +45,7 @@ var ServerNetworkEvents = {
 	_onPlayerConnect: function (clientId) {
 		// Don't reject the client connection
 		return false;
+		// TODO: Reject connection if the max number of clients have connected already
 	},
 
 	_onPlayerDisconnect: function (clientId) {
