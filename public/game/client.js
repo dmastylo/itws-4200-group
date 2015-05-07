@@ -29,7 +29,7 @@ var Client = IgeClass.extend({
 
 		// Load the textures we want to use
 		this.textures = {
-			grassSheet: new IgeCellSheet('../assets/textures/tiles/grassSheet.png', 4, 1)
+			field_texture: new IgeTexture('../assets/custom/ctf_blank_background.png')
 		};
 
 		ige.on('texturesLoaded', function () {
@@ -97,16 +97,24 @@ var Client = IgeClass.extend({
 							.drawBounds(true)
 							.mount(ige);
 
-						// Create the texture maps and load their map data
-						self.backgroundLayer1 = new IgeTextureMap()
-							.depth(0)
-							.tileWidth(40)
-							.tileHeight(40)
-							.translateTo(0, 0, 0)
-							//.drawGrid(10)
-							.drawBounds(false)
-							.autoSection(20)
-							.loadMap(BackgroundLayer1)
+						// // Create the texture maps and load their map data
+						// self.backgroundLayer1 = new IgeTextureMap()
+						// 	.depth(0)
+						// 	.tileWidth(40)
+						// 	.tileHeight(40)
+						// 	.translateTo(0, 0, 0)
+						// 	//.drawGrid(10)
+						// 	.drawBounds(false)
+						// 	.autoSection(20)
+						// 	.loadMap(BackgroundLayer1)
+						// 	.mount(self.mainScene);
+
+						self.field_background = new IgeEntity()
+							.id('field_background')
+							.width(800)
+							.height(600)
+							.translateTo(400, 300, -1)
+							.texture(self.textures.field_texture)
 							.mount(self.mainScene);
 
 
