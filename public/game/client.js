@@ -47,7 +47,8 @@ var Client = IgeClass.extend({
 						// Setup the network command listeners
 						ige.network.define('playerEntity', self._onPlayerEntity); // Defined in ./gameClasses/ClientNetworkEvents.js
 						ige.network.define('authFailed', self._onAuthFailed);
-						ige.network.define('scoreUpdate', self._onScoreUpdate)
+						ige.network.define('scoreUpdate', self._onScoreUpdate);
+						ige.network.define('timeUpdate', self._onTimeUpdate)
 
 						// Setup the network stream handler
 						ige.network.addComponent(IgeStreamComponent)
@@ -82,7 +83,7 @@ var Client = IgeClass.extend({
 							// .height(800)
 							.autoSize(true)
 							.scene(self.mainScene)
-							.drawBounds(true)
+							// .drawBounds(true)
 							.mount(ige);
 
 						self.ui_vp = new IgeViewport()
@@ -94,20 +95,8 @@ var Client = IgeClass.extend({
 							// .originTo(1, 1, 0)
 							.autoSize(false)
 							.scene(self.uiScene)
-							.drawBounds(true)
+							// .drawBounds(true)
 							.mount(ige);
-
-						// // Create the texture maps and load their map data
-						// self.backgroundLayer1 = new IgeTextureMap()
-						// 	.depth(0)
-						// 	.tileWidth(40)
-						// 	.tileHeight(40)
-						// 	.translateTo(0, 0, 0)
-						// 	//.drawGrid(10)
-						// 	.drawBounds(false)
-						// 	.autoSection(20)
-						// 	.loadMap(BackgroundLayer1)
-						// 	.mount(self.mainScene);
 
 						self.field_background = new IgeEntity()
 							.id('field_background')
@@ -116,7 +105,6 @@ var Client = IgeClass.extend({
 							.translateTo(400, 300, -1)
 							.texture(self.textures.field_texture)
 							.mount(self.mainScene);
-
 
 
 						// UI styles
@@ -148,7 +136,7 @@ var Client = IgeClass.extend({
 							'left': '5%'
 						});
 
-						ige.ui.style('#time', {
+						ige.ui.style('#time_label', {
 							'font': '2em Open Sans',
 							'width': 250,
 							'height': 40,
@@ -168,7 +156,7 @@ var Client = IgeClass.extend({
 							.mount(uiBox);
 
 						var time = new IgeUiLabel()
-							.id('time')
+							.id('time_label')
 							.value('Time Remaining: 0:00')
 							.mount(uiBox);							
 

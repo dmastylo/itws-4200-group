@@ -58,8 +58,10 @@ var Server = IgeClass.extend({
 						ige.network.on('disconnect', self._onPlayerDisconnect); // Defined in ./gameClasses/ServerNetworkEvents.js
 
 						ige.network.define('playerAuthenticate', self._onPlayerAuthenticate);
+						// these are client only methods just ignore them on the server
 						ige.network.define('authFailed', function() {} )
 						ige.network.define('scoreUpdate', function() {} );
+						ige.network.define('timeUpdate', function() {} );
 
 						ige.network.define('playerReady', self._onPlayerReady);
 						ige.network.define('playerUnready', self._onPlayerUnready);
@@ -240,6 +242,7 @@ var Server = IgeClass.extend({
 		self.game_timer_update = new IgeInterval(function () { 
 			self.game_time_left -= 1;
 			console.log('Remaining game time is :'+ self.game_time_left);
+			ige.network.send('timeUpdate', self.game_time_left);
 			// when the time hits 0 end the game
 			if (self.game_time_left <= 0 ) {
 				self.gameEnd();

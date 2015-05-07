@@ -54,6 +54,14 @@ var ClientNetworkEvents = {
 
 	},
 
+	_onTimeUpdate: function(data) {
+		// data is second remaining
+		var seconds = data % 60;
+		var minutes = Math.floor(data / 60);
+		var time_string = minutes + ":" + seconds;
+		ige.$('time_label').value("Time Remaining: "+time_string);
+	},
+
 	_onAuthFailed: function(data, clientId) {
 		// If auth failed reset the pword and username fields
 		console.log("On auth failed called!");
