@@ -1,4 +1,8 @@
-var request = require('request');
+// MongoDB dependencies
+require('../../db');
+var mongoose = require('mongoose');
+var GlobalModel = mongoose.model('GlobalModel');
+var UserInfo = mongoose.model('UserInfo');
 
 var Server = IgeClass.extend({
 	classId: 'Server',
@@ -283,12 +287,22 @@ var Server = IgeClass.extend({
 		// print (or save to db) game results and reset
 		console.log("Game Ended!");
 
-		var params = { red_score: self.red_score, blue_score: self.blue_score };
-		request.post('game_results', params, function(err, res, body) {
-      if (!err && res.statusCode === 200) {
-        console.log(res, body);
-      }
-	  });
+		// var stats = {
+	 //    gamesPlayed   : 100,
+	 //    redWins       : 50,
+	 //    blueWins      : 50,
+	 //    tags          : 14276,
+	 //    totalCaptures : 2000
+	 //  };
+
+		// GlobalModel.update({}, stats);
+
+		// var params = { red_score: self.red_score, blue_score: self.blue_score };
+		// request.post('game_results', params, function(err, res, body) {
+  //     if (!err && res.statusCode === 200) {
+  //       console.log(res, body);
+  //     }
+	 //  });
 
 		console.log("Red score");
 		console.log(self.red_score);
