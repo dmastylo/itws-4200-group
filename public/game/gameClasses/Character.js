@@ -6,6 +6,16 @@ var Character = IgeEntityBox2d.extend({
 		var self = this;
 		IgeEntityBox2d.prototype.init.call(this);
 
+		self.name = 'Demo';
+		if(data.team !== undefined)
+			self.name = data.name;
+		
+		self.gamesPlayed = 0;
+		self.wins = 0;
+		self.losses = 0;
+		self.tags = 0;
+		self.captures = 0;
+
 		// read initialization data
 		if(data.team !== undefined)
 			self._team = data.team;

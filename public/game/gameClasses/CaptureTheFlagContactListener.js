@@ -25,6 +25,7 @@ function checkForTaggedPlayers(contact) {
 		if(offence !== undefined && defence !== undefined) {
 			console.log(offence._id +" got tagged by "+ defence._id);
 			offence.tagged(true);
+			defence.taggs += 1;
 			// if offence is holding the flag they drop it now and it's returned
 			if(offence.holding_flag()) {
 				// figure out what team the flag is from
@@ -62,13 +63,11 @@ function checkForFlagCapture(contact) {
 		!contact.igeEntityByCategory('player').tagged() &&
 		!contact.igeEntityByCategory('flag').taken() &&
 		contact.igeEntityA().team() != contact.igeEntityB().team()) {
-		console.log("untagged player touching other teams flag");
-		console.log("flag status before: "+contact.igeEntityByCategory('flag').taken());
-		
+		var player = contact.igeEntityByCategory('player');
 		// have the player grab the flag and the flag read taken
-		contact.igeEntityByCategory('player').holding_flag(true);
+		player.holding_flag(true);
+		player.captures += 1;
 		contact.igeEntityByCategory('flag').taken(true);
-		console.log("flag status after: "+contact.igeEntityByCategory('flag').taken());
 	}
 }
 
