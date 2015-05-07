@@ -1,14 +1,8 @@
-<<<<<<< HEAD
 // MongoDB dependencies
 require('../../db');
 var mongoose = require('mongoose');
 var GlobalModel = mongoose.model('GlobalModel');
 var UserInfo = mongoose.model('UserInfo');
-=======
-// var request = require('request');
-//includes for mongoDB connectivity
-var mongoose = require('mongoose');
->>>>>>> 82bf38e0ce2bf6b76fd124fc1070bbdec8efb9b4
 
 var Server = IgeClass.extend({
 	classId: 'Server',
