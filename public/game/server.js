@@ -12,8 +12,9 @@ var Server = IgeClass.extend({
 		this.red_score = 0;
 		this.blue_score = 0;
 
-		this.game_length = 120;
+		this.game_length = 45;
 		this.game_time_left = 0;
+		this.required_players = 1;
 		// this is true when the game is being played and false when people are
 		// readying up
 		this.game_active = false;
@@ -131,7 +132,8 @@ var Server = IgeClass.extend({
 								return;
 							}
 							// check that there are the right number of players on each team
-							if (self.red_team_players != 2 || self.blue_team_players != 2) {
+							if (self.red_team_players != self.required_players ||
+								self.blue_team_players != self.required_players) {
 								return;
 							}
 
@@ -376,7 +378,7 @@ var Server = IgeClass.extend({
 				);
 		}
 
-		ige.mongo.findAll('globalmodels')[0], {}, function(err, stats) {
+		ige.mongo.findAll('globalmodels', {}, function(err, stats) {
 			console.log("mongo global models");
 			console.dir(stats);
 
@@ -388,9 +390,8 @@ var Server = IgeClass.extend({
 				tags          : (stats[0].tags + totalTags),
 				totalCaptures : (stats[0].totalCaptures + totalCaptures)
 			},
-			function(err, result) {
-				{ upsert: true }
-			});
+			{ upsert: true }
+			);
 		});
 
 		// var stats = {

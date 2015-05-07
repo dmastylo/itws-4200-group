@@ -4,7 +4,7 @@ function leaderboard($scope, $http) {
   $scope.leaderboardInit = function() {
     $http.get("/userInfo").success(function (response) {
       console.log(response);
-      $scope.stats = response.stats;
+      // $scope.stats = response.stats;
       $scope.users = response.users;
     });
   };

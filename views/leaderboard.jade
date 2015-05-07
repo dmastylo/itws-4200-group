@@ -23,7 +23,7 @@ html(ng-app="ctf")
       header
         .container
           h2 Leaderboard
-          table(style='width:80%')
+          table(style='width:80%' data-ng-init="leaderboardInit()")
             tr
               th Position
               th Username
@@ -42,21 +42,21 @@ html(ng-app="ctf")
               td {{ user.tags }}
               td {{ user.captures }}
 
-          h2 Global Game Stats
-          table(style='width:80%' data-ng-init="leaderboardInit()")
-            tr
-              th Total Games Played
-              th Red Wins
-              th Blue Wins
-              th Tags
-              th Total Captures
+          //- h2 Global Game Stats
+          //- table(style='width:80%')
+          //-   tr
+          //-     th Total Games Played
+          //-     th Red Wins
+          //-     th Blue Wins
+          //-     th Tags
+          //-     th Total Captures
 
-            tr(ng-repeat='stat in stats')
-              td {{ stat.gamesPlayed }}
-              td {{ stat.redWins }}
-              td {{ stat.blueWins }}
-              td {{ stat.tags }}
-              td {{ stat.totalCaptures }}
+          //-   tr(ng-repeat='stat in stats')
+          //-     td {{ stat.gamesPlayed }}
+          //-     td {{ stat.redWins }}
+          //-     td {{ stat.blueWins }}
+          //-     td {{ stat.tags }}
+          //-     td {{ stat.totalCaptures }}
 
     footer
       p
