@@ -1,5 +1,4 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express'); var router = express.Router();
 
 // MongoDB dependencies
 var mongoose = require('mongoose');
@@ -38,7 +37,7 @@ router.get('/userInfo', function(req, res, next) {
     // res.json(response);
   // });
 
-  UserInfo.find({}, function(err, users) {
+  UserInfo.find({}).sort('-captures').exec(function(err, users) {
     GlobalModel.find({}, function(err, stats) {
       res.json({ users: users, stats: stats });
     });
