@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 // MongoDB dependencies
 require('../../db');
 var mongoose = require('mongoose');
 var GlobalModel = mongoose.model('GlobalModel');
 var UserInfo = mongoose.model('UserInfo');
+=======
+// var request = require('request');
+//includes for mongoDB connectivity
+var mongoose = require('mongoose');
+>>>>>>> 82bf38e0ce2bf6b76fd124fc1070bbdec8efb9b4
 
 var Server = IgeClass.extend({
 	classId: 'Server',
@@ -236,6 +242,17 @@ var Server = IgeClass.extend({
 			});
 	},
 
+	getOtherTeam: function(team) {
+		if (team == 'red') {
+			return 'blue';
+		} else
+		if (team == 'blue') {
+			return 'red';
+		}
+		// If another team was passed just return nothing
+		return '';
+	},
+
 	gameStart: function() {
 		self = this;
 		// fill up the game timer
@@ -278,6 +295,28 @@ var Server = IgeClass.extend({
 	gameEnd: function() {
 		self = this;
 		console.log("Game ending!");
+		var result = 'Tie';
+		var winner = 'Tie';
+		if (self.red_score > self.blue_score) {
+			result = 'Red Wins!';
+			winner = 'red';
+		} else
+		if (self.blue_score > self.red_score) {
+			reset = 'Blue Wins!';
+			winner = 'blue';
+		}
+		// log stats for all the players
+		for (player_id in this.players) {
+			var player = this.players[player_id];
+			player.gamesPlayed++;
+
+			if (player.team() == winner) {
+				player.wins++;
+			} else 
+			if (player.team() == this.getOtherTeam(winner)) {
+				player.losses++;
+			}
+		}
 
 		// stop game things happening
 		this.game_active = false;
