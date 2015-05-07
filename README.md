@@ -4,6 +4,7 @@ CTF
 Pull latest changes
 
 Run ```npm install```
+
 ```cd``` to ```public/ige/server/``` and run ```npm install``` again.
 
 Run server with ```nodemon```
