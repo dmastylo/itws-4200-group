@@ -1,0 +1,36 @@
+html
+  head
+    title Capture The Flag
+    link(rel='stylesheet', href='css/style.css')
+    link(rel="stylesheet", href="css/foundation.css")
+    link(rel="stylesheet", href="css/font-awesome.min.css")
+    link(rel="shortcut icon", href="favicon.ico", type="image/x-icon")
+  body
+    nav.icon-bar.four-up
+      a.item(href='index')
+        i.fa.fa-home
+      a.item(href='/game')
+        i.fa.fa-flag
+      a.item(href='leaderboard')
+        i.fa.fa-trophy
+      a.item(href='https://github.com/dmastylo/itws-4200-group')
+        i.fa.fa-github
+    // Header
+    section#header.dark
+      header
+        #register
+        h1 Register
+          Username: input br
+          Password: input br
+        button a(href='#') Register
+      footer
+        a(href='game') Join a game
+        #login
+          h1 Login
+              Username: input br
+              Password: input br
+             button a(href='#') Login
+    // Footer
+    footer
+      p
+        | CTF was created by Group 3 for Web Science, Spring 2015.
