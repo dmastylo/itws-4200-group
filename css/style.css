@@ -1,4 +1,6 @@
 @import url("http://fonts.googleapis.com/css?family=Roboto:100");
+	
+
 	body{
 		font-family: 'Roboto', sans-serif;
 		font-weight: 300;
@@ -14,13 +16,10 @@
 		line-height: 1.5em;
 	}
 		
-		h1 a, h2 a{
-			color: inherit;
-			text-decoration: none;
-		}
 		.dark h1, .dark h2{
 			color: #fff;
 		}
+		
 	a{
 		color: inherit;
 		text-decoration: none;
@@ -39,8 +38,9 @@
 		color: #aaa;
 		color: rgba(255,255,255,0.65);
 	}
+
 /*********************************************************************************/
-/* Header                                                                        */
+/* Sections                                                                      */
 /*********************************************************************************/
 	header{
 		margin-top: 4%;
@@ -73,46 +73,19 @@
 		text-align: center;
 		margin-bottom: 2%;
 	}
-.container {
-	background-color: #333333;
-	bottom: 0;
-	font-color: white;
-	height: 110%;
-}
-.container h2{
-	padding-top: 4%;
-	text-align: center;
-	color: white;
-}
-/*********************************************************************************/
-/* Main Sections                                                                 */
-/*********************************************************************************/
-	.main
-	{
-		padding-top: 3.2%;
-		position: relative;
-		margin: 0;
+
+	.container {
+		background-color: #333333;
+		bottom: 0;
+		font-color: white;
+		height: 110%;
 	}
-	
-		.main header
-		{
-			background: #fff;
-			text-align: center;
-			padding: 0.2em 0 7em 0;
-			margin: 0;
-		}
-		
-			.main header h2{
-				font-size: 2.25em;
-				font-weight: 100;
-				margin-bottom: 0;
-			}
-		
-			.main header p{
-				margin: 2em 0 0 0;
-				padding: 0;
-				text-align: center;
-			}
+	.container h2{
+		padding-top: 4%;
+		text-align: center;
+		color: white;
+	}
+
 	ul li{
 		color: white;
 		list-style: none;
@@ -121,6 +94,7 @@
 		font-size: 1em;
 		line-height: 2.5em;
 	}
+
 /*********************************************************************************/
 /* Footer                                                                        */
 /*********************************************************************************/
